@@ -8,10 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Nhúng thư viện Firebase SDK đầy đủ (App, Firestore, Storage) -->
+    <!-- Nhúng thư viện Firebase SDK Firestore -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
     <style>
         :root { --primary: #0f1c24; --accent: #c5a059; --accent-light: #dfbc77; --light: #f8f9fa; --dark: #111111; --gray: #777777; --border: #e2e2e2; }
@@ -224,7 +223,7 @@
     <div class="modal-overlay" id="adminModal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeAdmin()">&times;</span>
-            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Firebase Storage An Toàn)</h3>
+            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Lưu Trực Tiếp Siêu Tốc)</h3>
             
             <div class="admin-tabs" id="adminTabsHeader">
                 <button class="admin-tab-btn active" onclick="switchTab('add')">Đăng Bài Mới</button>
@@ -288,18 +287,18 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Tải Lên Hình Ảnh (Upload Song Song Lên Firebase Storage)</label>
+                    <label>Tải Lên Hình Ảnh (Nén tự động & Lưu tức thì)</label>
                     <div class="upload-box">
                         <i class="fa-solid fa-cloud-arrow-up" style="font-size: 22px; color: var(--accent);"></i>
                         <p style="font-size: 12px; color: var(--gray);">Chọn nhiều ảnh từ thiết bị của bạn</p>
                         <input type="file" id="imageInputFiles" multiple accept="image/*" onchange="handleImageUpload(event)">
                     </div>
-                    <div class="upload-loading" id="uploadLoadingText"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải ảnh lên Firebase Storage...</div>
+                    <div class="upload-loading" id="uploadLoadingText"><i class="fa-solid fa-spinner fa-spin"></i> Đang xử lý ảnh cực nhanh...</div>
                     <div class="preview-thumbnails" id="previewThumbnails"></div>
                 </div>
 
                 <div class="form-group"><label>Mô tả chi tiết</label><textarea id="newDesc" rows="5" placeholder="Nhập thông tin chi tiết..."></textarea></div>
-                <button class="btn-submit" id="btnSubmitPost" onclick="savePropertyToFirebase()">Đăng Bài Lên Firestore</button>
+                <button class="btn-submit" id="btnSubmitPost" onclick="savePropertyToFirestore()">Đăng Bài Lên Firestore</button>
             </div>
 
             <div class="admin-tab-content" id="tabManage">
@@ -344,12 +343,11 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const storage = firebase.storage();
 
         const ADMIN_SESSION_KEY = "one_center_admin_logged_in";
 
         let properties = [];
-        let uploadedImageUrls = [];
+        let uploadedImageUrls = []; // Lưu chuỗi base64 của ảnh đã nén
         let currentOpenPropertyId = null;
 
         let currentLightboxImages = [];
@@ -387,38 +385,64 @@
             filterProperties();
         }
 
-        // --- CƠ CHẾ UPLOAD SONG SONG TRỰC TIẾP LÊN FIREBASE STORAGE ---
+        // --- NÉN ẢNH VÀ CHUYỂN THÀNH BASE64 NGAY LẬP TỨC (KHÔNG CẦN STORAGE) ---
+        function compressAndConvertImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const maxWidth = 800; // Chiều rộng tối ưu hiển thị web
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Xuất chuỗi DataURL/Base64 chất lượng 0.65 (~dưới 150KB)
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
+                        resolve(dataUrl);
+                    };
+                };
+            });
+        }
+
         async function handleImageUpload(event) {
             const files = event.target.files;
             if (files.length === 0) return;
             
             const loadingText = document.getElementById('uploadLoadingText');
             loadingText.style.display = 'block';
-            loadingText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải đồng thời ${files.length} ảnh lên Firebase Storage...`;
+            loadingText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang nén và lưu trữ cục bộ ${files.length} ảnh...`;
             
             uploadedImageUrls = [];
             document.getElementById('previewThumbnails').innerHTML = '';
 
             try {
-                const uploadPromises = Array.from(files).map(async (file) => {
-                    const storageRef = storage.ref('properties/' + Date.now() + '_' + file.name);
-                    const snapshot = await storageRef.put(file);
-                    return await snapshot.ref.getDownloadURL();
-                });
+                for (let i = 0; i < files.length; i++) {
+                    const base64String = await compressAndConvertImage(files[i]);
+                    uploadedImageUrls.push(base64String);
 
-                uploadedImageUrls = await Promise.all(uploadPromises);
-
-                uploadedImageUrls.forEach(url => {
                     let thumb = document.createElement('div');
                     thumb.className = 'preview-thumb';
-                    thumb.style.backgroundImage = `url('${url}')`;
+                    thumb.style.backgroundImage = `url('${base64String}')`;
                     document.getElementById('previewThumbnails').appendChild(thumb);
-                });
+                }
 
                 loadingText.style.display = 'none';
             } catch (err) {
-                console.error("Lỗi upload ảnh:", err);
-                alert("Lỗi tải ảnh lên Storage: " + err.message);
+                console.error("Lỗi xử lý ảnh:", err);
+                alert("Lỗi xử lý ảnh: " + err.message);
                 loadingText.style.display = 'none';
             }
         }
@@ -583,7 +607,7 @@
             document.getElementById('adminTabsHeader').style.display = 'none';
         }
 
-        function savePropertyToFirebase() {
+        function savePropertyToFirestore() {
             let editId = document.getElementById('editFirestoreId').value;
             let code = document.getElementById('newCode').value.trim();
             let type = document.getElementById('newType').value;

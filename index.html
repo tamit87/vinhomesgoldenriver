@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Nhúng thư viện Firebase SDK đầy đủ (App, Firestore, Storage) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
@@ -223,7 +224,7 @@
     <div class="modal-overlay" id="adminModal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeAdmin()">&times;</span>
-            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Upload Siêu Tốc)</h3>
+            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Firebase Storage An Toàn)</h3>
             
             <div class="admin-tabs" id="adminTabsHeader">
                 <button class="admin-tab-btn active" onclick="switchTab('add')">Đăng Bài Mới</button>
@@ -282,18 +283,18 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Hiển thị Mức Giá</label><input type="text" id="newPrice" placeholder="VD: 95 tỷ hoặc 35 triệu/tháng"></div>
+                    <div class="form-group"><label>Hiển thị Mức Giá</label><input type="text" id="newPrice" placeholder="VD: 9.5 tỷ hoặc 35 triệu/tháng"></div>
                     <div class="form-group"><label>Tiêu đề bài viết</label><input type="text" id="newTitle" placeholder="Tiêu đề căn hộ..."></div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Tải Lên Hình Ảnh (Bấm chọn là lên lập tức - Không cần chờ đợi)</label>
+                    <label>Tải Lên Hình Ảnh (Upload Song Song Lên Firebase Storage)</label>
                     <div class="upload-box">
                         <i class="fa-solid fa-cloud-arrow-up" style="font-size: 22px; color: var(--accent);"></i>
                         <p style="font-size: 12px; color: var(--gray);">Chọn nhiều ảnh từ thiết bị của bạn</p>
                         <input type="file" id="imageInputFiles" multiple accept="image/*" onchange="handleImageUpload(event)">
                     </div>
-                    <div class="upload-loading" id="uploadLoadingText"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải ảnh lên Cloud Storage...</div>
+                    <div class="upload-loading" id="uploadLoadingText"><i class="fa-solid fa-spinner fa-spin"></i> Đang tải ảnh lên Firebase Storage...</div>
                     <div class="preview-thumbnails" id="previewThumbnails"></div>
                 </div>
 
@@ -386,20 +387,19 @@
             filterProperties();
         }
 
-        // --- UPLOAD SONG SONG TỐC ĐỘ CỰC NHANH (KHÔNG NÉN GÂY TREO MÁY) ---
+        // --- CƠ CHẾ UPLOAD SONG SONG TRỰC TIẾP LÊN FIREBASE STORAGE ---
         async function handleImageUpload(event) {
             const files = event.target.files;
             if (files.length === 0) return;
             
             const loadingText = document.getElementById('uploadLoadingText');
             loadingText.style.display = 'block';
-            loadingText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải ${files.length} ảnh lên Storage cùng lúc...`;
+            loadingText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải đồng thời ${files.length} ảnh lên Firebase Storage...`;
             
             uploadedImageUrls = [];
             document.getElementById('previewThumbnails').innerHTML = '';
 
             try {
-                // Đẩy đồng thời tất cả các file ảnh lên Google Storage ngay lập tức
                 const uploadPromises = Array.from(files).map(async (file) => {
                     const storageRef = storage.ref('properties/' + Date.now() + '_' + file.name);
                     const snapshot = await storageRef.put(file);
@@ -408,7 +408,6 @@
 
                 uploadedImageUrls = await Promise.all(uploadPromises);
 
-                // Hiển thị preview ngay sau khi hoàn tất
                 uploadedImageUrls.forEach(url => {
                     let thumb = document.createElement('div');
                     thumb.className = 'preview-thumb';

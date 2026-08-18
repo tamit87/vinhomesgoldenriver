@@ -11,6 +11,8 @@
     <!-- Nhúng thư viện Firebase SDK Firestore -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- Nhúng thư viện Cloudinary Upload Widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 
     <style>
         :root { --primary: #0f1c24; --accent: #c5a059; --accent-light: #dfbc77; --light: #f8f9fa; --dark: #111111; --gray: #777777; --border: #e2e2e2; }
@@ -88,8 +90,7 @@
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .btn-submit { background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 8px; }
         
-        .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; position: relative; }
-        .upload-box input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; }
         .preview-thumbnails { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .preview-thumb { width: 55px; height: 55px; border-radius: 5px; background-size: cover; background-position: center; border: 1px solid var(--border); position: relative; }
         .upload-loading { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 5px; display: none; }
@@ -223,7 +224,7 @@
     <div class="modal-overlay" id="adminModal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeAdmin()">&times;</span>
-            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Lưu Trực Tiếp Siêu Tốc)</h3>
+            <h3 id="adminModalTitle" style="margin-bottom: 18px; color: var(--primary);">Bảng Quản Trị Giỏ Hàng (Cloudinary Siêu Tốc)</h3>
             
             <div class="admin-tabs" id="adminTabsHeader">
                 <button class="admin-tab-btn active" onclick="switchTab('add')">Đăng Bài Mới</button>
@@ -287,13 +288,12 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Tải Lên Hình Ảnh (Nén tự động & Lưu tức thì)</label>
-                    <div class="upload-box">
-                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 22px; color: var(--accent);"></i>
-                        <p style="font-size: 12px; color: var(--gray);">Chọn nhiều ảnh từ thiết bị của bạn</p>
-                        <input type="file" id="imageInputFiles" multiple accept="image/*" onchange="handleImageUpload(event)">
+                    <label>Tải Lên Hình Ảnh (Cloudinary CDN)</label>
+                    <div class="upload-box" onclick="openCloudinaryWidget()">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--accent);"></i>
+                        <p style="font-size: 13px; font-weight: 600; color: var(--primary); margin-top: 5px;">Bấm vào đây để chọn và tải nhiều ảnh lên Cloudinary</p>
+                        <span style="font-size: 11px; color: var(--gray);">Tốc độ cực nhanh, không làm nặng trang web</span>
                     </div>
-                    <div class="upload-loading" id="uploadLoadingText"><i class="fa-solid fa-spinner fa-spin"></i> Đang xử lý ảnh cực nhanh...</div>
                     <div class="preview-thumbnails" id="previewThumbnails"></div>
                 </div>
 
@@ -347,11 +347,40 @@
         const ADMIN_SESSION_KEY = "one_center_admin_logged_in";
 
         let properties = [];
-        let uploadedImageUrls = []; // Lưu chuỗi base64 của ảnh đã nén
+        let uploadedImageUrls = []; // Lưu danh sách URL ảnh từ Cloudinary
         let currentOpenPropertyId = null;
 
         let currentLightboxImages = [];
         let currentLightboxIndex = 0;
+
+        // --- CẤU HÌNH CLOUDINARY CHO TÀI KHOẢN "pcltgibz" ---
+        const cloudinaryCloudName = "pcltgibz";
+        const cloudinaryUploadPreset = "unsigned_preset"; // Hãy đảm bảo bạn tạo một Upload Preset dạng Unsigned trên Cloudinary Dashboard
+
+        function openCloudinaryWidget() {
+            // Nếu bạn chưa tạo preset, hãy vào Cloudinary Dashboard -> Settings -> Upload -> Add upload preset (Signing mode: Unsigned)
+            cloudinary.openUploadWidget({
+                cloudName: cloudinaryCloudName,
+                uploadPreset: cloudinaryUploadPreset,
+                sources: ['local', 'url', 'camera'],
+                multiple: true,
+                maxFiles: 15,
+                cropping: false,
+                clientAllowedFormats: ["image"]
+            }, (error, result) => {
+                if (!error && result && result.event === "success") {
+                    let secureUrl = result.info.secure_url;
+                    uploadedImageUrls.push(secureUrl);
+                    
+                    // Hiển thị thumbnail ngay lập tức
+                    let thumbContainer = document.getElementById('previewThumbnails');
+                    let thumb = document.createElement('div');
+                    thumb.className = 'preview-thumb';
+                    thumb.style.backgroundImage = `url('${secureUrl}')`;
+                    thumbContainer.appendChild(thumb);
+                }
+            });
+        }
 
         function loadDataFromFirebase() {
             db.collection("properties").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
@@ -383,68 +412,6 @@
             window.location.hash = "";
             closeDetail();
             filterProperties();
-        }
-
-        // --- NÉN ẢNH VÀ CHUYỂN THÀNH BASE64 NGAY LẬP TỨC (KHÔNG CẦN STORAGE) ---
-        function compressAndConvertImage(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.src = event.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        const maxWidth = 800; // Chiều rộng tối ưu hiển thị web
-
-                        if (width > maxWidth) {
-                            height = Math.round((height * maxWidth) / width);
-                            width = maxWidth;
-                        }
-
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        // Xuất chuỗi DataURL/Base64 chất lượng 0.65 (~dưới 150KB)
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
-                        resolve(dataUrl);
-                    };
-                };
-            });
-        }
-
-        async function handleImageUpload(event) {
-            const files = event.target.files;
-            if (files.length === 0) return;
-            
-            const loadingText = document.getElementById('uploadLoadingText');
-            loadingText.style.display = 'block';
-            loadingText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang nén và lưu trữ cục bộ ${files.length} ảnh...`;
-            
-            uploadedImageUrls = [];
-            document.getElementById('previewThumbnails').innerHTML = '';
-
-            try {
-                for (let i = 0; i < files.length; i++) {
-                    const base64String = await compressAndConvertImage(files[i]);
-                    uploadedImageUrls.push(base64String);
-
-                    let thumb = document.createElement('div');
-                    thumb.className = 'preview-thumb';
-                    thumb.style.backgroundImage = `url('${base64String}')`;
-                    document.getElementById('previewThumbnails').appendChild(thumb);
-                }
-
-                loadingText.style.display = 'none';
-            } catch (err) {
-                console.error("Lỗi xử lý ảnh:", err);
-                alert("Lỗi xử lý ảnh: " + err.message);
-                loadingText.style.display = 'none';
-            }
         }
 
         function togglePriceDropdown() { document.getElementById('priceDropdownContent').classList.toggle('active'); }

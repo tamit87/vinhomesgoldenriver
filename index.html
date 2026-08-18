@@ -93,6 +93,7 @@
         .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; }
         .preview-thumbnails { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .preview-thumb { width: 55px; height: 55px; border-radius: 5px; background-size: cover; background-position: center; border: 1px solid var(--border); position: relative; }
+        .upload-loading { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 5px; display: none; }
 
         .manage-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
         .manage-table th, .manage-table td { border: 1px solid var(--border); padding: 9px; text-align: left; }
@@ -118,14 +119,6 @@
         .card-share-btn:hover { background: var(--accent); }
 
         .detail-desc { font-size: 14.5px; line-height: 1.8; white-space: pre-line; background: var(--light); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
-        
-        /* CSS cho nút chia sẻ mạng xã hội */
-        .share-container { margin: 20px 0; display: flex; gap: 10px; align-items: center; border-top: 1px solid var(--border); padding-top: 15px; }
-        .share-btn { padding: 8px 15px; border-radius: 5px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; border: none; }
-        .share-fb { background: #4267B2; }
-        .share-zalo { background: #0068ff; }
-        .share-copy { background: #333; }
-
         footer { background: var(--primary); color: #fff; padding: 40px; text-align: center; margin-top: 60px; font-size: 13.5px; }
 
         @media(max-width: 768px) {
@@ -319,7 +312,6 @@
         </div>
     </div>
 
-    <!-- Modal Xem Chi Tiết -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeDetail()">&times;</span>
@@ -331,14 +323,6 @@
             <p id="detMeta" style="font-size: 13px; color: var(--gray); margin-bottom: 15px; font-weight: 600;"></p>
             <div id="detGallery" style="display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;"></div>
             <div class="detail-desc" id="detDesc"></div>
-            
-            <!-- Phần nút chia sẻ mạng xã hội -->
-            <div class="share-container" id="shareContainerBox">
-                <span style="font-size:13px; font-weight:700; color:var(--primary);">Chia sẻ: </span>
-                <a id="shareFbBtn" href="#" target="_blank" class="share-btn share-fb"><i class="fa-brands fa-facebook-f"></i> FB</a>
-                <a id="shareZaloBtn" href="#" target="_blank" class="share-btn share-zalo"><i class="fa-solid fa-comment-dots"></i> Zalo</a>
-                <button class="share-btn share-copy" onclick="copyCurrentDetailLink()"><i class="fa-solid fa-link"></i> Link</button>
-            </div>
         </div>
     </div>
 
@@ -363,17 +347,18 @@
         const ADMIN_SESSION_KEY = "one_center_admin_logged_in";
 
         let properties = [];
-        let uploadedImageUrls = [];
+        let uploadedImageUrls = []; // Lưu danh sách URL ảnh từ Cloudinary
         let currentOpenPropertyId = null;
 
         let currentLightboxImages = [];
         let currentLightboxIndex = 0;
 
-        // --- CẤU HÌNH CLOUDINARY ---
+        // --- CẤU HÌNH CLOUDINARY CHO TÀI KHOẢN "pcltgibz" ---
         const cloudinaryCloudName = "pcltgibz";
-        const cloudinaryUploadPreset = "vinhomes_preset";
+        const cloudinaryUploadPreset = "vinhomes_preset"; // Hãy đảm bảo bạn tạo một Upload Preset dạng Unsigned trên Cloudinary Dashboard
 
         function openCloudinaryWidget() {
+            // Nếu bạn chưa tạo preset, hãy vào Cloudinary Dashboard -> Settings -> Upload -> Add upload preset (Signing mode: Unsigned)
             cloudinary.openUploadWidget({
                 cloudName: cloudinaryCloudName,
                 uploadPreset: cloudinaryUploadPreset,
@@ -387,6 +372,7 @@
                     let secureUrl = result.info.secure_url;
                     uploadedImageUrls.push(secureUrl);
                     
+                    // Hiển thị thumbnail ngay lập tức
                     let thumbContainer = document.getElementById('previewThumbnails');
                     let thumb = document.createElement('div');
                     thumb.className = 'preview-thumb';
@@ -680,12 +666,6 @@
             document.getElementById('detMeta').innerText = `${p.area} | ${bedLabel} | ${p.wc || '2 WC'}`;
             document.getElementById('detDesc').innerText = p.desc || 'Đang cập nhật...';
             
-            // Cập nhật link chia sẻ cho các nút mạng xã hội dưới bài viết chi tiết
-            let shareUrl = encodeURIComponent(`${window.location.href.split('#')[0]}#id=${p.firestoreId}`);
-            let shareTitle = encodeURIComponent(p.title);
-            document.getElementById('shareFbBtn').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-            document.getElementById('shareZaloBtn').href = `https://zalo.me/share?url=${shareUrl}&text=${shareTitle}`;
-
             let gallery = document.getElementById('detGallery');
             gallery.innerHTML = '';
             if(p.imgs && p.imgs.length > 0) {

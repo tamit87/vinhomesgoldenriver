@@ -97,7 +97,6 @@
         
         .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; }
         
-        /* Giao diện sắp xếp ảnh quản trị */
         .preview-thumbnails { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
         .thumb-card { width: 100px; height: 95px; border-radius: 6px; border: 1px solid var(--border); background: #f1f1f1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
         .thumb-img { flex: 1; background-size: cover; background-position: center; }
@@ -337,7 +336,6 @@
                             <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--accent);"></i>
                             <p style="font-size: 13px; font-weight: 600; color: var(--primary); margin-top: 5px;">Bấm vào đây để chọn và tải thêm ảnh</p>
                         </div>
-                        <!-- Khu vực hiển thị danh sách ảnh có nút di dời trái/phải và xóa -->
                         <div class="preview-thumbnails" id="previewThumbnails"></div>
                     </div>
 
@@ -393,7 +391,7 @@
 
         let properties = [];
         let filteredProperties = [];
-        let uploadedImageUrls = []; // Mảng chứa các URL ảnh
+        let uploadedImageUrls = [];
         let currentOpenPropertyId = null;
         let isAdminLoggedIn = false;
 
@@ -422,12 +420,11 @@
                 if (!error && result && result.event === "success") {
                     let secureUrl = result.info.secure_url;
                     uploadedImageUrls.push(secureUrl);
-                    renderThumbnails(); // Vẽ lại giao diện quản lý ảnh
+                    renderThumbnails();
                 }
             });
         }
 
-        // --- HÀM VẼ VÀ QUẢN LÝ THỨ TỰ ẢNH (DI DỜI & XÓA) ---
         function renderThumbnails() {
             let thumbContainer = document.getElementById('previewThumbnails');
             thumbContainer.innerHTML = '';
@@ -458,20 +455,15 @@
             });
         }
 
-        // Di dời vị trí ảnh trong mảng (direction: -1 lùi trái lên đầu, 1 tiến phải xuống cuối)
         function moveImage(index, direction) {
             let targetIndex = index + direction;
             if (targetIndex < 0 || targetIndex >= uploadedImageUrls.length) return;
-            
-            // Hoán đổi vị trí 2 phần tử trong mảng
             let temp = uploadedImageUrls[index];
             uploadedImageUrls[index] = uploadedImageUrls[targetIndex];
             uploadedImageUrls[targetIndex] = temp;
-
-            renderThumbnails(); // Cập nhật lại giao diện
+            renderThumbnails();
         }
 
-        // Xóa một ảnh cụ thể khỏi danh sách
         function removeImage(index) {
             uploadedImageUrls.splice(index, 1);
             renderThumbnails();
@@ -590,10 +582,16 @@
                     else if (p.status === 'rented') statusBadgeHTML = `<span class="admin-status-badge badge-rented">Đã Cho Thuê</span>`;
                 }
 
+                let adminCodeBadgeHTML = '';
+                if (isAdminLoggedIn && p.code) {
+                    adminCodeBadgeHTML = `<span style="position: absolute; top: 12px; left: 115px; background: #0f1c24; color: #c5a059; border: 1px solid #c5a059; padding: 5px 9px; font-size: 11px; font-weight: 800; border-radius: 4px; z-index: 6; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">Mã: ${p.code}</span>`;
+                }
+
                 card.innerHTML = `
                     <div class="property-img" style="background-image: url('${coverImg}')">
                         <span class="property-badge">${p.type === 'ban' ? 'Chuyển Nhượng' : 'Cho Thuê'}</span>
                         ${statusBadgeHTML}
+                        ${adminCodeBadgeHTML}
                         <button class="card-share-btn" onclick="copyPropertyLink(event, '${p.firestoreId}')"><i class="fa-solid fa-copy"></i> Copy Link</button>
                         <span style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;"><i class="fa-solid fa-images" style="color: #f39c12;"></i> ${p.imgs ? p.imgs.length : 1}</span>
                     </div>
@@ -663,7 +661,7 @@
             document.getElementById('newDesc').value = p.desc || '';
             
             uploadedImageUrls = p.imgs || [];
-            renderThumbnails(); // Hiển thị ảnh và công cụ sắp xếp
+            renderThumbnails();
 
             document.getElementById('btnSubmitPost').innerText = "Cập Nhật Bài Viết";
             document.getElementById('adminModalTitle').innerText = "Chỉnh Sửa Sản Phẩm";

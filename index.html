@@ -1,134 +1,947 @@
-<!DOCTYPE html><html lang="vi"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">        <!-- SEO Meta Tags Chuyên Sâu cho Vinhomes Golden River -->    <title>Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son Giá Tốt Nhất</title>    <meta name="description" content="Chuyên cho thuê và chuyển nhượng căn hộ, Villa, Penthouse Vinhomes Golden River Ba Son (1PN, 2PN, 3PN) view sông Sài Gòn trực diện. Cập nhật bảng giá thuê Vinhomes Golden River mới nhất. Hotline: 0979.669.663">    <meta name="keywords" content="cho thuê căn hộ vinhomes golden river, chuyển nhượng vinhomes golden river, giá thuê vinhomes golden river, cho thuê vinhomes ba son, vinhomes golden river cho thuê">    <link rel="canonical" href="https://chothuecanhovinhomesgoldenriver.com/">
-    <!-- Open Graph cho Social Media (Zalo, Facebook) -->    <meta property="og:title" content="Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son Giá Tốt Nhất">    <meta property="og:description" content="Giỏ hàng độc quyền căn hộ, Villa Vinhomes Golden River Ba Son view sông Sài Gòn trực diện. Hỗ trợ xem nhà 24/7.">    <meta property="og:type" content="website">
-    <!-- Schema Markup (Dữ liệu có cấu trúc cho Bất động sản) -->    <script type="application/ld+json">    {      "@context": "https://schema.org",      "@type": "RealEstateAgent",      "name": "Vinhomes Golden River Leasing & Sales",      "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",      "url": "https://chothuecanhovinhomesgoldenriver.com/",      "telephone": "0979669663",      "address": {        "@type": "PostalAddress",        "streetAddress": "Số 2 Tôn Đức Thắng, Phường Bến Nghé",        "addressLocality": "Quận 1",        "addressRegion": "Ho Chi Minh",        "postalCode": "700000",        "addressCountry": "VN"      },      "openingHoursSpecification": {        "@type": "OpeningHoursSpecification",        "dayOfWeek": [          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"        ],        "opens": "08:00",        "closes": "21:00"      },      "priceRange": "$$$"    }    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">        <!-- Nhúng thư viện Firebase SDK (Auth, Firestore) -->    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <!-- Nhúng thư viện Cloudinary Upload Widget -->    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-    <style>        :root { --primary: #0f1c24; --accent: #c5a059; --accent-light: #dfbc77; --light: #f8f9fa; --dark: #111111; --gray: #777777; --border: #e2e2e2; }        { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-        body { background-color: #fff; color: var(--dark); line-height: 1.6; }                header { background: var(--primary); color: #fff; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(197,160,89,0.3); }        .logo { font-size: 19px; font-weight: 800; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }        .nav-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }        .hotline { color: #fff; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 7px; background: rgba(197,160,89,0.15); padding: 7px 14px; border-radius: 30px; border: 1px solid var(--accent); font-size: 13px; }        .admin-btn { background: var(--accent); color: #fff; border: none; padding: 7px 14px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; }
-        .hero { background: linear-gradient(135deg, rgba(15,28,36,0.85), rgba(15,28,36,0.65)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover; min-height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 60px 20px 80px 20px; position: relative; }        .hero-badge { background: rgba(197, 160, 89, 0.2); color: var(--accent-light); border: 1px solid var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }        .hero h1 { font-size: clamp(26px, 4.2vw, 44px); margin-bottom: 15px; font-weight: 800; max-width: 950px; text-shadow: 0 3px 10px rgba(0,0,0,0.4); }        .hero p { font-size: clamp(14px, 2vw, 17px); max-width: 750px; font-weight: 300; color: #e0e0e0; line-height: 1.7; }
-        .search-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.25); display: flex; gap: 15px; width: 92%; max-width: 1050px; margin: -45px auto 0 auto; position: relative; z-index: 10; flex-wrap: wrap; align-items: flex-end; border: 1px solid rgba(197,160,89,0.3); }        .search-group { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 5px; position: relative; }        .search-group label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }        .search-group select, .search-group button, .dropdown-toggle { padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; outline: none; background: #fff; text-align: left; cursor: pointer; transition: 0.2s; }        .search-group select:focus, .dropdown-toggle:focus { border-color: var(--accent); }        .search-group button { background: var(--accent); color: #fff; font-weight: 700; border: none; text-align: center; }        .search-group button:hover { background: #b08d48; }
-        .price-dropdown-content { display: none; position: absolute; top: 100%; left: 0; width: 100%; min-width: 280px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); padding: 18px; z-index: 100; margin-top: 6px; }        .price-dropdown-content.active { display: block; }        .price-dropdown-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; margin-bottom: 12px; font-size: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--primary); }        .price-inputs { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }        .price-inputs input { width: 100%; padding: 9px; border: 1px solid var(--border); border-radius: 5px; font-size: 13px; outline: none; }        .price-options-list { display: flex; flex-direction: column; gap: 10px; max-height: 190px; overflow-y: auto; margin-bottom: 12px; }        .price-option-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--dark); }        .price-dropdown-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; }        .btn-reset { background: transparent; border: none; color: var(--gray); font-weight: 600; cursor: pointer; font-size: 12px; }        .btn-apply { background: #e74c3c; color: #fff; border: none; padding: 7px 18px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 12px; }
-        .floating-contact { position: fixed; bottom: 25px; right: 25px; z-index: 2500; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }        .float-btn { display: flex; align-items: center; gap: 10px; background: #fff; color: #333; text-decoration: none; padding: 8px 16px 8px 10px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: 700; font-size: 13.5px; transition: 0.3s; border: 1px solid rgba(0,0,0,0.08); }        .float-btn i { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }        .float-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }        .btn-phone i { background: #e74c3c; animation: pulse-ring 1.5s infinite; }        .btn-zalo i { background: #0068ff; }        .btn-whatsapp i { background: #25d366; }        .btn-viber i { background: #7360f2; }
-        @keyframes pulse-ring {            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.5); }            70% { box-shadow: 0 0 0 12px rgba(231, 76, 60, 0); }            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }        }
-        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center; }        .lightbox-overlay.active { display: flex; }        .lightbox-overlay img { max-width: 85%; max-height: 85vh; border-radius: 6px; object-fit: contain; }        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; z-index: 3010; background: rgba(0,0,0,0.5); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }        .lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: #fff; border: none; font-size: 28px; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 3010; }        .lightbox-arrow:hover { background: rgba(255,255,255,0.4); }        .lightbox-prev { left: 25px; }        .lightbox-next { right: 25px; }        .lightbox-counter { position: absolute; top: 25px; left: 30px; color: #fff; font-size: 15px; font-weight: 600; background: rgba(0,0,0,0.5); padding: 6px 14px; border-radius: 20px; z-index: 3010; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 15px; }        .modal-overlay.active { display: flex; }        .modal-box { background: #fff; width: 100%; max-width: 850px; border-radius: 10px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; }        .modal-close { position: absolute; top: 15px; right: 18px; font-size: 20px; cursor: pointer; color: var(--gray); }
-        .login-box { max-width: 380px; margin: 20px auto; text-align: center; }        .login-box input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; }        .login-box button { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
-        .admin-tabs { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }        .admin-tab-btn { background: #eee; border: none; padding: 7px 14px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 12.5px; }        .admin-tab-btn.active { background: var(--accent); color: #fff; }        .admin-tab-content { display: none; }        .admin-tab-content.active { display: block; }        .form-group { margin-bottom: 14px; display: flex; flex-direction: column; gap: 5px; }        .form-group label { font-size: 12px; font-weight: 700; color: var(--primary); }        .form-group input, .form-group textarea, .form-group select { padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; outline: none; }        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }        .btn-submit { background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 8px; }                .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; }                .preview-thumbnails { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }        .thumb-card { width: 100px; height: 95px; border-radius: 6px; border: 1px solid var(--border); background: #f1f1f1; display: flex; flex-direction: column; position: relative; overflow: hidden; }        .thumb-img { flex: 1; background-size: cover; background-position: center; }        .thumb-actions { display: flex; background: rgba(0,0,0,0.8); justify-content: space-between; align-items: center; padding: 2px 4px; }        .thumb-actions button { background: none; border: none; color: #fff; font-size: 11px; cursor: pointer; padding: 2px 5px; }        .thumb-actions button:hover { color: var(--accent); }        .thumb-del { position: absolute; top: 2px; right: 2px; background: rgba(231,76,60,0.9); color: #fff; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; }
-        .manage-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }        .manage-table th, .manage-table td { border: 1px solid var(--border); padding: 9px; text-align: left; }        .manage-table th { background: var(--primary); color: #fff; }        .btn-del { background: #e74c3c; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; }        .btn-edit { background: #3498db; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; margin-right: 4px; }        .btn-share { background: #0068ff; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; margin-left: 4px; }                .container { max-width: 1200px; margin: 60px auto; padding: 0 15px; }        .section-title { text-align: center; margin-bottom: 35px; }        .section-title h2 { font-size: 26px; color: var(--primary); font-weight: 800; }        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }        .property-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; flex-direction: column; cursor: pointer; transition: 0.3s; position: relative; }        .property-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }        .property-img { height: 190px; background-size: cover; background-position: center; position: relative; }        .property-badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 4px; text-transform: uppercase; }                .admin-status-badge { position: absolute; top: 12px; right: 12px; color: #fff; padding: 4px 9px; font-size: 10px; font-weight: 800; border-radius: 4px; text-transform: uppercase; z-index: 6; }        .badge-hot { background: #e74c3c; }        .badge-sold { background: #8e44ad; }        .badge-rented { background: #27ae60; }
-        .property-content { padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }        .property-title { font-size: 15.5px; font-weight: 700; color: var(--primary); margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }        .property-price { font-size: 18px; font-weight: 800; color: #e74c3c; margin-bottom: 12px; }        .property-meta { display: flex; gap: 15px; font-size: 13px; color: var(--gray); font-weight: 600; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }        .property-meta span { display: flex; align-items: center; gap: 5px; }        .card-share-btn { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.7); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 5; transition: 0.2s; }        .card-share-btn:hover { background: var(--accent); }
-        .detail-desc { font-size: 14.5px; line-height: 1.8; white-space: pre-line; background: var(--light); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }                /* Khối nội dung SEO chuyên sâu cho Vinhomes Golden River ở chân trang */        .seo-content-box { background: #fdfbf7; border: 1px solid rgba(197,160,89,0.3); border-radius: 12px; padding: 35px; margin-top: 60px; line-height: 1.8; }        .seo-content-box h2 { font-size: 22px; color: var(--primary); margin-bottom: 15px; font-weight: 800; }        .seo-content-box h3 { font-size: 18px; color: var(--primary); margin: 20px 0 10px 0; font-weight: 700; }        .seo-content-box p { font-size: 14.5px; color: #444; margin-bottom: 12px; }        .seo-content-box ul { margin-left: 20px; margin-bottom: 15px; font-size: 14.5px; color: #444; }        .seo-content-box li { margin-bottom: 6px; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags Chuyên Sâu cho Vinhomes Golden River -->
+    <title>Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son Giá Tốt Nhất</title>
+    <meta name="description" content="Chuyên cho thuê và chuyển nhượng căn hộ, Villa, Penthouse Vinhomes Golden River Ba Son (1PN, 2PN, 3PN) view sông Sài Gòn trực diện. Cập nhật bảng giá thuê Vinhomes Golden River mới nhất. Hotline: 0979.669.663">
+    <meta name="keywords" content="cho thuê căn hộ vinhomes golden river, chuyển nhượng vinhomes golden river, giá thuê vinhomes golden river, cho thuê vinhomes ba son, vinhomes golden river cho thuê">
+    <link rel="canonical" href="https://chothuecanhovinhomesgoldenriver.com/">
+    <!-- Open Graph cho Social Media (Zalo, Facebook) -->
+    <meta property="og:title" content="Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son Giá Tốt Nhất">
+    <meta property="og:description" content="Giỏ hàng độc quyền căn hộ, Villa Vinhomes Golden River Ba Son view sông Sài Gòn trực diện. Hỗ trợ xem nhà 24/7.">
+    <meta property="og:type" content="website">
+    <!-- Schema Markup (Dữ liệu có cấu trúc cho Bất động sản) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Vinhomes Golden River Leasing & Sales",
+      "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://chothuecanhovinhomesgoldenriver.com/",
+      "telephone": "0979669663",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 2 Tôn Đức Thắng, Phường Bến Nghé",
+        "addressLocality": "Quận 1",
+        "addressRegion": "Ho Chi Minh",
+        "postalCode": "700000",
+        "addressCountry": "VN"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      "priceRange": "$$$"
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Nhúng thư viện Firebase SDK (Auth, Firestore) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- Nhúng thư viện Cloudinary Upload Widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <style>
+        :root { --primary: #0f1c24; --accent: #c5a059; --accent-light: #dfbc77; --light: #f8f9fa; --dark: #111111; --gray: #777777; --border: #e2e2e2; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+        body { background-color: #fff; color: var(--dark); line-height: 1.6; }
+        header { background: var(--primary); color: #fff; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(197,160,89,0.3); }
+        .logo { font-size: 19px; font-weight: 800; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .nav-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .hotline { color: #fff; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 7px; background: rgba(197,160,89,0.15); padding: 7px 14px; border-radius: 30px; border: 1px solid var(--accent); font-size: 13px; }
+        .admin-btn { background: var(--accent); color: #fff; border: none; padding: 7px 14px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+        .hero { background: linear-gradient(135deg, rgba(15,28,36,0.85), rgba(15,28,36,0.65)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover; min-height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 60px 20px 80px 20px; position: relative; }
+        .hero-badge { background: rgba(197, 160, 89, 0.2); color: var(--accent-light); border: 1px solid var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .hero h1 { font-size: clamp(26px, 4.2vw, 44px); margin-bottom: 15px; font-weight: 800; max-width: 950px; text-shadow: 0 3px 10px rgba(0,0,0,0.4); }
+        .hero p { font-size: clamp(14px, 2vw, 17px); max-width: 750px; font-weight: 300; color: #e0e0e0; line-height: 1.7; }
+        .search-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.25); display: flex; gap: 15px; width: 92%; max-width: 1050px; margin: -45px auto 0 auto; position: relative; z-index: 10; flex-wrap: wrap; align-items: flex-end; border: 1px solid rgba(197,160,89,0.3); }
+        .search-group { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 5px; position: relative; }
+        .search-group label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .search-group select, .search-group button, .dropdown-toggle { padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; outline: none; background: #fff; text-align: left; cursor: pointer; transition: 0.2s; }
+        .search-group select:focus, .dropdown-toggle:focus { border-color: var(--accent); }
+        .search-group button { background: var(--accent); color: #fff; font-weight: 700; border: none; text-align: center; }
+        .search-group button:hover { background: #b08d48; }
+        .price-dropdown-content { display: none; position: absolute; top: 100%; left: 0; width: 100%; min-width: 280px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); padding: 18px; z-index: 100; margin-top: 6px; }
+        .price-dropdown-content.active { display: block; }
+        .price-dropdown-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; margin-bottom: 12px; font-size: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--primary); }
+        .price-inputs { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .price-inputs input { width: 100%; padding: 9px; border: 1px solid var(--border); border-radius: 5px; font-size: 13px; outline: none; }
+        .price-options-list { display: flex; flex-direction: column; gap: 10px; max-height: 190px; overflow-y: auto; margin-bottom: 12px; }
+        .price-option-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--dark); }
+        .price-dropdown-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; }
+        .btn-reset { background: transparent; border: none; color: var(--gray); font-weight: 600; cursor: pointer; font-size: 12px; }
+        .btn-apply { background: #e74c3c; color: #fff; border: none; padding: 7px 18px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 12px; }
+        .floating-contact { position: fixed; bottom: 25px; right: 25px; z-index: 2500; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+        .float-btn { display: flex; align-items: center; gap: 10px; background: #fff; color: #333; text-decoration: none; padding: 8px 16px 8px 10px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: 700; font-size: 13.5px; transition: 0.3s; border: 1px solid rgba(0,0,0,0.08); }
+        .float-btn i { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .float-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .btn-phone i { background: #e74c3c; animation: pulse-ring 1.5s infinite; }
+        .btn-zalo i { background: #0068ff; }
+        .btn-whatsapp i { background: #25d366; }
+        .btn-viber i { background: #7360f2; }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 3000; justify-content: center; align-items: center; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-overlay img { max-width: 85%; max-height: 85vh; border-radius: 6px; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; z-index: 3010; background: rgba(0,0,0,0.5); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: #fff; border: none; font-size: 28px; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 3010; }
+        .lightbox-arrow:hover { background: rgba(255,255,255,0.4); }
+        .lightbox-prev { left: 25px; }
+        .lightbox-next { right: 25px; }
+        .lightbox-counter { position: absolute; top: 25px; left: 30px; color: #fff; font-size: 15px; font-weight: 600; background: rgba(0,0,0,0.5); padding: 6px 14px; border-radius: 20px; z-index: 3010; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 15px; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: #fff; width: 100%; max-width: 850px; border-radius: 10px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-close { position: absolute; top: 15px; right: 18px; font-size: 20px; cursor: pointer; color: var(--gray); }
+        .login-box { max-width: 380px; margin: 20px auto; text-align: center; }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; }
+        .login-box button { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .admin-tabs { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .admin-tab-btn { background: #eee; border: none; padding: 7px 14px; border-radius: 5px; font-weight: 600; cursor: pointer; font-size: 12.5px; }
+        .admin-tab-btn.active { background: var(--accent); color: #fff; }
+        .admin-tab-content { display: none; }
+        .admin-tab-content.active { display: block; }
+        .form-group { margin-bottom: 14px; display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 12px; font-weight: 700; color: var(--primary); }
+        .form-group input, .form-group textarea, .form-group select { padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; outline: none; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-submit { background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 8px; }
+        .upload-box { border: 2px dashed var(--accent); padding: 15px; text-align: center; border-radius: 8px; background: #fdfbf7; cursor: pointer; }
+        .preview-thumbnails { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .thumb-card { width: 100px; height: 95px; border-radius: 6px; border: 1px solid var(--border); background: #f1f1f1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .thumb-img { flex: 1; background-size: cover; background-position: center; }
+        .thumb-actions { display: flex; background: rgba(0,0,0,0.8); justify-content: space-between; align-items: center; padding: 2px 4px; }
+        .thumb-actions button { background: none; border: none; color: #fff; font-size: 11px; cursor: pointer; padding: 2px 5px; }
+        .thumb-actions button:hover { color: var(--accent); }
+        .thumb-del { position: absolute; top: 2px; right: 2px; background: rgba(231,76,60,0.9); color: #fff; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; }
+        .manage-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
+        .manage-table th, .manage-table td { border: 1px solid var(--border); padding: 9px; text-align: left; }
+        .manage-table th { background: var(--primary); color: #fff; }
+        .btn-del { background: #e74c3c; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .btn-edit { background: #3498db; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; margin-right: 4px; }
+        .btn-share { background: #0068ff; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; margin-left: 4px; }
+        .container { max-width: 1200px; margin: 60px auto; padding: 0 15px; }
+        .section-title { text-align: center; margin-bottom: 35px; }
+        .section-title h2 { font-size: 26px; color: var(--primary); font-weight: 800; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+        .property-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid var(--border); display: flex; flex-direction: column; cursor: pointer; transition: 0.3s; position: relative; }
+        .property-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .property-img { height: 190px; background-size: cover; background-position: center; position: relative; }
+        .property-badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
+        .admin-status-badge { position: absolute; top: 12px; right: 12px; color: #fff; padding: 4px 9px; font-size: 10px; font-weight: 800; border-radius: 4px; text-transform: uppercase; z-index: 6; }
+        .badge-hot { background: #e74c3c; }
+        .badge-sold { background: #8e44ad; }
+        .badge-rented { background: #27ae60; }
+        .property-content { padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .property-title { font-size: 15.5px; font-weight: 700; color: var(--primary); margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .property-price { font-size: 18px; font-weight: 800; color: #e74c3c; margin-bottom: 12px; }
+        .property-meta { display: flex; gap: 15px; font-size: 13px; color: var(--gray); font-weight: 600; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }
+        .property-meta span { display: flex; align-items: center; gap: 5px; }
+        .card-share-btn { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.7); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 5; transition: 0.2s; }
+        .card-share-btn:hover { background: var(--accent); }
+        .detail-desc { font-size: 14.5px; line-height: 1.8; white-space: pre-line; background: var(--light); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        /* Khối nội dung SEO chuyên sâu cho Vinhomes Golden River ở chân trang */
+        .seo-content-box { background: #fdfbf7; border: 1px solid rgba(197,160,89,0.3); border-radius: 12px; padding: 35px; margin-top: 60px; line-height: 1.8; }
+        .seo-content-box h2 { font-size: 22px; color: var(--primary); margin-bottom: 15px; font-weight: 800; }
+        .seo-content-box h3 { font-size: 18px; color: var(--primary); margin: 20px 0 10px 0; font-weight: 700; }
+        .seo-content-box p { font-size: 14.5px; color: #444; margin-bottom: 12px; }
+        .seo-content-box ul { margin-left: 20px; margin-bottom: 15px; font-size: 14.5px; color: #444; }
+        .seo-content-box li { margin-bottom: 6px; }
         footer { background: var(--primary); color: #fff; padding: 40px; text-align: center; margin-top: 0; font-size: 13.5px; }
-        @media(max-width: 768px) {            .floating-contact { bottom: 15px; right: 15px; }            .float-btn span { display: none; }            .float-btn { padding: 8px; border-radius: 50%; }        }    </style></head><body>
-    <div class="lightbox-overlay" id="lightboxModal">        <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>        <button class="lightbox-arrow lightbox-prev" onclick="changeLightboxImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>        <img id="lightboxImg" src="" alt="Phóng to ảnh căn hộ Vinhomes Golden River">        <button class="lightbox-arrow lightbox-next" onclick="changeLightboxImage(1)"><i class="fa-solid fa-chevron-right"></i></button>    </div>
-    <div class="floating-contact">        <a href="tel:0979669663" class="float-btn btn-phone" title="Gọi ngay"><i class="fa-solid fa-phone"></i><span>0979.669.663</span></a>        <a href="https://zalo.me/0979669663" target="_blank" class="float-btn btn-zalo" title="Zalo"><i class="fa-solid fa-comment-dots"></i><span>Zalo</span></a>        <a href="https://wa.me/84979669663" target="_blank" class="float-btn btn-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>        <a href="viber://chat?number=%2B84979669663" class="float-btn btn-viber" title="Viber"><i class="fa-brands fa-viber"></i><span>Viber</span></a>    </div>
-    <header>        <div class="logo" onclick="goHome()">Vinhomes Golden River Ba Son</div>        <div class="nav-right">            <a href="tel:0979669663" class="hotline"><i class="fa-solid fa-phone"></i> 0979.669.663</a>            <button class="admin-btn" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Quản Trị</button>        </div>    </header>
-    <section class="hero">        <div class="hero-badge"><i class="fa-solid fa-gem"></i> Exclusive Leasing & Sales</div>        <h1>Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son</h1>        <p>Giỏ hàng độc quyền căn hộ, Villa biệt thự ven sông, Penthouse view trực diện sông Sài Gòn & Thảo Cầm Viên</p>    </section>
-    <div style="display: flex; justify-content: center;">        <div class="search-container">            <div class="search-group">                <label>Nhu cầu</label>                <select id="filterType" onchange="updatePriceOptions(); filterProperties();">                    <option value="all">Tất cả nhu cầu</option>                    <option value="ban">Bán / Chuyển nhượng</option>
-                    <option value="thue">Cho thuê</option>                </select>            </div>
-            <div class="search-group">                <label>Loại sản phẩm</label>                <select id="filterBedroom" onchange="filterProperties()">                    <option value="all">Tất cả loại sản phẩm</option>                    <option value="villa">Villa / Biệt thự</option>                    <option value="1pn">1 Phòng Ngủ</option>                    <option value="2pn">2 Phòng Ngủ</option>                    <option value="3pn">3 Phòng Ngủ</option>                    <option value="4pn">4 Phòng Ngủ</option>                    <option value="over-4pn">Trên 4PN</option>                    <option value="duplex">Duplex</option>                    <option value="penthouse">Penthouse</option>                    <option value="shophouse">Shophouse</option>                </select>            </div>
-            <div class="search-group">                <label>Khoảng giá</label>                <div class="dropdown-toggle" id="priceDropdownToggle" onclick="togglePriceDropdown()">                    <span id="selectedPriceText" style="font-size: 13px;">Tất cả mức giá</span> <i class="fa-solid fa-chevron-down" style="float: right; margin-top: 3px;"></i>                </div>                <div class="price-dropdown-content" id="priceDropdownContent">                    <div class="price-dropdown-header">                        <span>Khoảng giá</span>                        <i class="fa-solid fa-xmark" onclick="togglePriceDropdown()"></i>                    </div>                    <div class="price-inputs">                        <input type="number" id="priceMin" placeholder="Từ">                        <span>→</span>                        <input type="number" id="priceMax" placeholder="Đến">                    </div>                    <div class="price-options-list" id="priceOptionsList"></div>                    <div class="price-dropdown-footer">                        <button class="btn-reset" onclick="resetPriceFilter()">Đặt lại</button>                        <button class="btn-apply" onclick="applyPriceFilter()">Áp dụng</button>                    </div>                </div>            </div>
-            <div class="search-group">                <button onclick="filterProperties()"><i class="fa-solid fa-search"></i> Tìm kiếm</button>            </div>        </div>    </div>
-    <main class="container">        <div class="section-title">            <h2>Giỏ Hàng Căn Hộ & Villa Vinhomes Golden River Độc Quyền</h2>        </div>        <div class="property-grid" id="propertyGrid"></div>
-        <!-- Khối nội dung SEO chuyên sâu giúp Google chấm điểm từ khóa cực cao -->        <section class="seo-content-box">            <h2>Dịch Vụ Cho Thuê & Chuyển Nhượng Vinhomes Golden River Ba Son Chính Chủ</h2>            <p>Khu đô thị phức hợp cao cấp <strong>Vinhomes Golden River</strong> (tọa lạc tại số 2 Tôn Đức Thắng, Phường Bến Nghé, Quận 1) được quy hoạch trên nền cảng Ba Son lịch sử, sở hữu vị trí vàng độc tôn hai mặt tiền đường Tôn Đức Thắng và Nguyễn Hữu Cảnh, trực diện bờ sông Sài Gòn và Thảo Cầm Viên. Đây là lựa chọn hàng đầu của cộng đồng thượng lưu và chuyên gia quốc tế tại Thành phố Hồ Chí Minh.</p>                        <h3>Cập Nhật Giá Cho Thuê & Chuyển Nhượng Vinhomes Golden River Mới Nhất</h3>            <p>Mức <strong>giá thuê vinhomes golden river</strong> và thị trường chuyển nhượng hiện nay dao động linh hoạt theo phân khu (Aqua, The Luxury, The Victoria), tầm nhìn và thiết kế nội thất:</p>            <ul>                <li><strong>Căn hộ 1 phòng ngủ:</strong> Diện tích từ 45m² - 50m², không gian ấm cúng, thích hợp cho chuyên gia độc thân. Giá thuê từ 18 - 25 triệu/tháng.</li>                <li><strong>Căn hộ 2 phòng ngủ:</strong> Diện tích từ 68m² - 83m², thiết kế tối ưu công năng, view sông hoặc nội khu thoáng mát. Giá thuê từ 25 - 40 triệu/tháng.</li>                <li><strong>Căn hộ 3 - 4 phòng ngủ:</strong> Diện tích từ 100m² - 160m², không gian rộng rãi cho gia đình đa thế hệ. Giá thuê từ 45 - 75+ triệu/tháng.</li>                <li><strong>Villa Vinhomes Golden River & Penthouse:</strong> Dòng sản phẩm giới hạn đỉnh cao, đẳng cấp triệu đô ven sông Sài Gòn.</li>            </ul>
-            <h3>Vì Sao Nên Chọn Dịch Vụ Của Chúng Tôi?</h3>            <p>Nếu bạn đang tìm kiếm thông tin <strong>cho thuê căn hộ vinhomes golden river</strong> hoặc cần dịch vụ <strong>chuyển nhượng vinhomes golden river</strong> uy tín, chúng tôi cam kết giỏ hàng thực tế 100%, thương lượng trực tiếp chính chủ, hỗ trợ thủ tục pháp lý nhanh gọn và xem nhà miễn phí 24/7. Liên hệ ngay Hotline: <strong>0979.669.663</strong> để nhận bảng hàng chi tiết hôm nay!</p>        </section>    </main>
-    <!-- Modal Quản Trị (Xác thực Firebase Auth) -->    <div class="modal-overlay" id="adminModal">        <div class="modal-box">            <span class="modal-close" onclick="closeAdmin()">&times;</span>                        <div id="loginFormContainer" class="login-box" style="display: none;">                <h3 style="margin-bottom: 12px; color: var(--primary);">Đăng Nhập Quản Trị</h3>                <p style="font-size: 12px; color: var(--gray); margin-bottom: 15px;">Dùng Email/Mật khẩu Admin đã đăng ký trên Firebase</p>                <input type="email" id="adminEmail" placeholder="Email quản trị...">                <input type="password" id="adminPassword" placeholder="Mật khẩu...">                <button onclick="loginAdminAccount()">Đăng Nhập An Toàn</button>            </div>
-            <div id="adminPanelContainer" style="display: none;">                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">                    <h3 id="adminModalTitle" style="color: var(--primary);">Bảng Quản Trị Giỏ Hàng</h3>                    <button class="btn-del" style="padding: 5px 12px; font-size: 12px;" onclick="logoutAdminAccount()">Đăng Xuất</button>                </div>
-                <div class="admin-tabs" id="adminTabsHeader">                    <button class="admin-tab-btn active" onclick="switchTab('add')">Đăng Bài Mới</button>                    <button class="admin-tab-btn" onclick="switchTab('manage')">Xóa / Sửa / Quản Lý</button>                </div>
-                <div class="admin-tab-content active" id="tabAdd">                    <input type="hidden" id="editFirestoreId" value="">                                        <div class="form-row">                        <div class="form-group"><label>Nhu cầu</label>                            <select id="newType"><option value="ban">Bán / Chuyển nhượng</option><option value="thue">Cho thuê</option></select>                        </div>                        <div class="form-group">                            <label>Mã sản phẩm / Căn hộ</label>                            <input type="text" id="newCode" placeholder="VD: Aqua 1 - 12.05 hoặc V-05">                        </div>                    </div>
-                    <div class="form-row">                        <div class="form-group">                            <label>Loại sản phẩm</label>                            <select id="newBed">                                <option value="villa">Villa / Biệt thự</option>                                <option value="1pn">1 Phòng Ngủ</option>                                <option value="2pn" selected>2 Phòng Ngủ</option>                                <option value="3pn">3 Phòng Ngủ</option>                                <option value="4pn">4 Phòng Ngủ</option>                                <option value="over-4pn">Trên 4PN</option>                                <option value="duplex">Duplex</option>                                <option value="penthouse">Penthouse</option>                                <option value="shophouse">Shophouse</option>                            </select>                        </div>                        <div class="form-group">                            <label>Số WC</label>                            <select id="newWc">                                <option value="1 WC">1 WC</option>                                <option value="2 WC" selected>2 WC</option>                                <option value="3 WC">3 WC</option>                                <option value="4 WC">4 WC</option>                                <option value="5+ WC">5+ WC / Nguyên căn</option>                            </select>                        </div>                    </div>
-                    <div class="form-row">                        <div class="form-group">                            <label>Trạng thái (Chỉ Admin thấy trên web)</label>                            <select id="newStatus">                                <option value="normal">Bình thường</option>                                <option value="hot">🔥 HOT</option>                                <option value="sold">Đã Bán</option>                                <option value="rented">Đã Cho Thuê</option>                            </select>                        </div>                        <div class="form-group">                            <label>Diện tích (m²)</label>                            <input type="text" id="newArea" placeholder="VD: 87.7 m²">                        </div>                    </div>
-                    <div class="form-row">                        <div class="form-group">                            <label>Giá (Số để bộ lọc)</label>                            <input type="number" id="newPriceVal" placeholder="VD: 9.5 hoặc 35">                        </div>                        <div class="form-group">                            <label>Hiển thị Mức Giá</label>                            <input type="text" id="newPrice" placeholder="VD: 9.5 tỷ hoặc 35 triệu/tháng">                        </div>                    </div>
-                    <div class="form-group"><label>Tiêu đề bài viết</label><input type="text" id="newTitle" placeholder="Tiêu đề căn hộ..."></div>                                        <div class="form-group">                        <label>Quản lý & Sắp xếp Hình Ảnh (Cloudinary CDN)</label>                        <div class="upload-box" onclick="openCloudinaryWidget()">                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--accent);"></i>                            <p style="font-size: 13px; font-weight: 600; color: var(--primary); margin-top: 5px;">Bấm vào đây để chọn và tải thêm ảnh</p>                        </div>                        <div class="preview-thumbnails" id="previewThumbnails"></div>                    </div>
-                    <div class="form-group"><label>Mô tả chi tiết</label><textarea id="newDesc" rows="5" placeholder="Nhập thông tin chi tiết..."></textarea></div>                    <button class="btn-submit" id="btnSubmitPost" onclick="savePropertyToFirestore()">Đăng Bài Lên Firestore</button>                </div>
-                <div class="admin-tab-content" id="tabManage">                    <div style="max-height: 350px; overflow-y: auto;">                        <table class="manage-table">                            <thead><tr><th>Mã</th><th>Tiêu đề</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>                            <tbody id="manageBody"></tbody>                        </table>                    </div>                </div>            </div>        </div>    </div>
-    <!-- Modal Chi tiết -->    <div class="modal-overlay" id="detailModal">        <div class="modal-box">            <span class="modal-close" onclick="closeDetail()">&times;</span>            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">                <h3 id="detTitle" style="color: var(--primary);"></h3>                <button class="admin-btn" style="padding: 5px 12px; font-size: 12px;" onclick="copyCurrentDetailLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>            </div>            <p id="detPrice" style="color: #e74c3c; font-weight: 800; font-size: 18px; margin-bottom: 8px;"></p>            <p id="detMeta" style="font-size: 13px; color: var(--gray); margin-bottom: 15px; font-weight: 600;"></p>            <div id="detGallery" style="display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;"></div>            <div class="detail-desc" id="detDesc"></div>        </div>    </div>
-    <footer>        <p>&copy; 2026 chothuecanhovinhomesgoldenriver.com - Hotline: 0979.669.663</p>    </footer>
-    <script>        const firebaseConfig = {            apiKey: "AIzaSyB0fXH9HR-Ptp6RjPoZJsVqqopK4qlP5wk",            authDomain: "chothuecanhovinhomes-fce30.firebaseapp.com",            projectId: "chothuecanhovinhomes-fce30",            storageBucket: "chothuecanhovinhomes-fce30.firebasestorage.app",            messagingSenderId: "613137405132",            appId: "1:613137405132:web:9fceba7cdc0d0bb65f5e69",            measurementId: "G-007F28NSLH"        };
-        firebase.initializeApp(firebaseConfig);        const auth = firebase.auth();        const db = firebase.firestore();
-        let properties = [];        let filteredProperties = [];        let uploadedImageUrls = [];        let currentOpenPropertyId = null;        let isAdminLoggedIn = false;
-        let currentLightboxImages = [];        let currentLightboxIndex = 0;
-        const cloudinaryCloudName = "pcltgibz";        const cloudinaryUploadPreset = "vinhomes_preset";
-        auth.onAuthStateChanged((user) => {            isAdminLoggedIn = !!user;            renderGrid();            renderManage();        });
-        function openCloudinaryWidget() {            cloudinary.openUploadWidget({                cloudName: cloudinaryCloudName,                uploadPreset: cloudinaryUploadPreset,                sources: ['local', 'url', 'camera'],                multiple: true,                maxFiles: 15,                cropping: false,                clientAllowedFormats: ["image"]            }, (error, result) => {                if (!error && result && result.event === "success") {                    let secureUrl = result.info.secure_url;                    uploadedImageUrls.push(secureUrl);                    renderThumbnails();                }            });        }
-        function renderThumbnails() {            let thumbContainer = document.getElementById('previewThumbnails');            thumbContainer.innerHTML = '';                        if (uploadedImageUrls.length === 0) {                thumbContainer.innerHTML = '<span style="font-size:12px; color:var(--gray); font-style:italic;">Chưa có hình ảnh nào được chọn.</span>';                return;            }
-            uploadedImageUrls.forEach((url, index) => {                let card = document.createElement('div');                card.className = 'thumb-card';                                let isFirst = (index === 0);                let badgeCover = isFirst ? '<span style="position:absolute; bottom:2px; left:2px; background:var(--accent); color:#fff; font-size:9px; padding:1px 4px; border-radius:3px; font-weight:700;">Ảnh Bìa</span>' : '';
-                card.innerHTML = `                    <button class="thumb-del" onclick="removeImage(${index})" title="Xóa ảnh">&times;</button>                    <div class="thumb-img" style="background-image: url('${url}')"></div>                    ${badgeCover}                    <div class="thumb-actions">                        <button onclick="moveImage(${index}, -1)" title="Di chuyển lên trước" ${index === 0 ? 'style="opacity:0.3; cursor:not-allowed;"' : ''}><i class="fa-solid fa-chevron-left"></i></button>                        <span style="font-size:10px; color:#fff;">${index + 1}</span>                        <button onclick="moveImage(${index}, 1)" title="Di chuyển ra sau" ${index === uploadedImageUrls.length - 1 ? 'style="opacity:0.3; cursor:not-allowed;"' : ''}><i class="fa-solid fa-chevron-right"></i></button>                    </div>                `;                thumbContainer.appendChild(card);            });        }
-        function moveImage(index, direction) {            let targetIndex = index + direction;            if (targetIndex < 0 || targetIndex >= uploadedImageUrls.length) return;            let temp = uploadedImageUrls[index];            uploadedImageUrls[index] = uploadedImageUrls[targetIndex];            uploadedImageUrls[targetIndex] = temp;            renderThumbnails();        }
-        function removeImage(index) {            uploadedImageUrls.splice(index, 1);            renderThumbnails();        }
-        function loadDataFromFirebase() {            db.collection("properties").orderBy("createdAt", "desc").onSnapshot((snapshot) => {                properties = [];                snapshot.forEach((doc) => {                    properties.push({ firestoreId: doc.id, ...doc.data() });                });                updatePriceOptions();                filterProperties();                checkUrlForSharedProperty();            });        }
-        function checkUrlForSharedProperty() {            let hash = window.location.hash;            if (hash.includes("id=")) {                let targetId = hash.split("id=")[1];                let found = properties.find(p => p.firestoreId === targetId);                if (found) { openDetail(found); }            }        }
-        function goHome() {            window.location.hash = "";            closeDetail();            filterProperties();        }
-        function togglePriceDropdown() { document.getElementById('priceDropdownContent').classList.toggle('active'); }        window.onclick = function(e) { if (!e.target.closest('.search-group')) document.getElementById('priceDropdownContent').classList.remove('active'); }
-        function updatePriceOptions() {            const type = document.getElementById('filterType').value;            let html = `<label class="price-option-item"><input type="radio" name="priceRadio" value="all" checked onclick="selectRadioPrice('all', 'Tất cả mức giá')"> Tất cả khoảng giá</label>`;            if (type === 'thue') {                html += `<label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(0, 20, 'Dưới 20 Tr/tháng')"> Dưới 20 Triệu</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(20, 40, '20 - 40 Tr/tháng')"> 20 - 40 Triệu</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(40, 60, '40 - 60 Tr/tháng')"> 40 - 60 Triệu</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(60, 99999, 'Trên 60 Tr/tháng')"> Trên 60 Triệu</label>`;            } else {                html += `<label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(0, 10, 'Dưới 10 Tỷ')"> Dưới 10 Tỷ</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(10, 20, '10 - 20 Tỷ')"> 10 - 20 Tỷ</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(20, 50, '20 - 50 Tỷ')"> 20 - 50 Tỷ</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(50, 100, '50 - 100 Tỷ')"> 50 - 100 Tỷ</label>                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(100, 99999, 'Trên 100 Tỷ')"> Trên 100 Tỷ</label>`;            }            document.getElementById('priceOptionsList').innerHTML = html;        }
-        function selectRadioPrice(min, max, label) {            document.getElementById('priceMin').value = min === 'all' ? '' : min;            document.getElementById('priceMax').value = max === 99999 ? '' : max;            document.getElementById('selectedPriceText').innerText = label;        }
-        let currentFilterMin = null, currentFilterMax = null;        function resetPriceFilter() {            document.getElementById('priceMin').value = ''; document.getElementById('priceMax').value = '';            document.getElementById('selectedPriceText').innerText = 'Tất cả mức giá';            currentFilterMin = null; currentFilterMax = null;            togglePriceDropdown(); filterProperties();        }        function applyPriceFilter() {            const min = document.getElementById('priceMin').value;            const max = document.getElementById('priceMax').value;            currentFilterMin = min !== '' ? parseFloat(min) : null;            currentFilterMax = max !== '' ? parseFloat(max) : null;            togglePriceDropdown(); filterProperties();        }
-        function filterProperties() {            let type = document.getElementById('filterType').value;            let bed = document.getElementById('filterBedroom').value;            filteredProperties = properties.filter(c => {                let matchType = (type === 'all' || c.type === type);                let matchBed = (bed === 'all' || c.bed === bed);                let matchPrice = true;                if (currentFilterMin !== null && (c.priceVal || 0) < currentFilterMin) matchPrice = false;                if (currentFilterMax !== null && (c.priceVal || 0) > currentFilterMax) matchPrice = false;                return matchType && matchBed && matchPrice;            });            renderGrid();        }
-        function renderGrid() {            let grid = document.getElementById('propertyGrid');            grid.innerHTML = '';            if(filteredProperties.length === 0) {                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--gray); padding: 30px;">Không tìm thấy sản phẩm phù hợp.</p>';                renderManage();                return;            }
-            filteredProperties.forEach(p => {                let card = document.createElement('div');                card.className = 'property-card';                card.onclick = () => openDetail(p);                let coverImg = (p.imgs && p.imgs.length > 0) ? p.imgs[0] : 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80';                                let bedLabel = '2 PN';                if (p.bed === 'villa') bedLabel = 'Villa';                else if (p.bed === 'duplex') bedLabel = 'Duplex';                else if (p.bed === 'penthouse') bedLabel = 'Penthouse';                else if (p.bed === 'shophouse') bedLabel = 'Shophouse';                else if (p.bed === 'over-4pn') bedLabel = '> 4 PN';                else if (p.bed) bedLabel = p.bed.toUpperCase().replace('PN', ' PN');
-                let statusBadgeHTML = '';                if (isAdminLoggedIn && p.status && p.status !== 'normal') {                    if (p.status === 'hot') statusBadgeHTML = `<span class="admin-status-badge badge-hot">🔥 HOT</span>`;                    else if (p.status === 'sold') statusBadgeHTML = `<span class="admin-status-badge badge-sold">Đã Bán</span>`;                    else if (p.status === 'rented') statusBadgeHTML = `<span class="admin-status-badge badge-rented">Đã Cho Thuê</span>`;                }
-                let adminCodeBadgeHTML = '';                if (isAdminLoggedIn && p.code) {                    adminCodeBadgeHTML = `<span style="position: absolute; top: 12px; left: 115px; background: #0f1c24; color: #c5a059; border: 1px solid #c5a059; padding: 5px 9px; font-size: 11px; font-weight: 800; border-radius: 4px; z-index: 6; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">Mã: ${p.code}</span>`;                }
-                card.innerHTML = `                    <div class="property-img" style="background-image: url('${coverImg}')">                        <span class="property-badge">${p.type === 'ban' ? 'Chuyển Nhượng' : 'Cho Thuê'}</span>                        ${statusBadgeHTML}                        ${adminCodeBadgeHTML}                        <button class="card-share-btn" onclick="copyPropertyLink(event, '${p.firestoreId}')"><i class="fa-solid fa-copy"></i> Copy Link</button>                        <span style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;"><i class="fa-solid fa-images" style="color: #f39c12;"></i> ${p.imgs ? p.imgs.length : 1}</span>                    </div>                    <div class="property-content">                        <div>                            <div class="property-title">${p.title}</div>                            <div class="property-price">${p.price}</div>                        </div>                        <div class="property-meta">                            <span><i class="fa-solid fa-house"></i> ${bedLabel}</span>                            <span><i class="fa-solid fa-bath"></i> ${p.wc || '2 WC'}</span>                            <span><i class="fa-regular fa-square"></i> ${p.area || '80 m²'}</span>                        </div>                    </div>                `;                grid.appendChild(card);            });            renderManage();        }
-        function renderManage() {            let body = document.getElementById('manageBody');            body.innerHTML = '';            if(properties.length === 0) {                body.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--gray);">Chưa có bài viết nào</td></tr>';                return;            }            properties.forEach(p => {                let tr = document.createElement('tr');                let displayCode = p.code ? `<span style="background: var(--primary); color: var(--accent); padding: 3px 7px; border-radius: 4px; font-size: 11px; font-weight: 700;">${p.code}</span>` : '<span style="color: var(--gray); font-style: italic;">Chưa có</span>';                                let statusLabel = 'Bình thường';                if(p.status === 'hot') statusLabel = '<span style="color:#e74c3c; font-weight:bold;">🔥 HOT</span>';                else if(p.status === 'sold') statusLabel = '<span style="color:#8e44ad; font-weight:bold;">Đã Bán</span>';                else if(p.status === 'rented') statusLabel = '<span style="color:#27ae60; font-weight:bold;">Đã Cho Thuê</span>';
-                let pDataStr = encodeURIComponent(JSON.stringify(p));
-                tr.innerHTML = `                    <td>${displayCode}</td>                    <td><b>${p.title}</b></td>                    <td style="color: #e74c3c; font-weight:600;">${p.price}</td>                    <td>${statusLabel}</td>                    <td>                        <button class="btn-edit" onclick="startEditProperty('${p.firestoreId}', decodeURIComponent('${pDataStr}'))">Sửa</button>                        <button class="btn-del" onclick="removeProp('${p.firestoreId}')">Xóa</button>                        <button class="btn-share" onclick="copyPropertyLinkDirect('${p.firestoreId}')">Copy Link</button>                    </td>                `;                body.appendChild(tr);            });        }
-        function startEditProperty(firestoreId, jsonStr) {            let p = JSON.parse(jsonStr);            switchTab('add');            document.getElementById('editFirestoreId').value = firestoreId;            document.getElementById('newType').value = p.type || 'ban';            document.getElementById('newCode').value = p.code || '';            document.getElementById('newBed').value = p.bed || '2pn';            document.getElementById('newWc').value = p.wc || '2 WC';            document.getElementById('newStatus').value = p.status || 'normal';            document.getElementById('newPriceVal').value = p.priceVal || '';            document.getElementById('newPrice').value = p.price || '';            document.getElementById('newArea').value = p.area || '';            document.getElementById('newTitle').value = p.title || '';            document.getElementById('newDesc').value = p.desc || '';                        uploadedImageUrls = p.imgs || [];            renderThumbnails();
-            document.getElementById('btnSubmitPost').innerText = "Cập Nhật & Đưa Lên Đầu Trang";            document.getElementById('adminModalTitle').innerText = "Chỉnh Sửa Sản Phẩm";            document.getElementById('adminTabsHeader').style.display = 'none';        }
+        @media(max-width: 768px) {
+            .floating-contact { bottom: 15px; right: 15px; }
+            .float-btn span { display: none; }
+            .float-btn { padding: 8px; border-radius: 50%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="lightbox-overlay" id="lightboxModal">
+        <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-arrow lightbox-prev" onclick="changeLightboxImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="Phóng to ảnh căn hộ Vinhomes Golden River">
+        <button class="lightbox-arrow lightbox-next" onclick="changeLightboxImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="floating-contact">
+        <a href="tel:0979669663" class="float-btn btn-phone" title="Gọi ngay"><i class="fa-solid fa-phone"></i><span>0979.669.663</span></a>
+        <a href="https://zalo.me/0979669663" target="_blank" class="float-btn btn-zalo" title="Zalo"><i class="fa-solid fa-comment-dots"></i><span>Zalo</span></a>
+        <a href="https://wa.me/84979669663" target="_blank" class="float-btn btn-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+        <a href="viber://chat?number=%2B84979669663" class="float-btn btn-viber" title="Viber"><i class="fa-brands fa-viber"></i><span>Viber</span></a>
+    </div>
+    <header>
+        <div class="logo" onclick="goHome()">Vinhomes Golden River Ba Son</div>
+        <div class="nav-right">
+            <a href="tel:0979669663" class="hotline"><i class="fa-solid fa-phone"></i> 0979.669.663</a>
+            <button class="admin-btn" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Quản Trị</button>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-gem"></i> Exclusive Leasing & Sales</div>
+        <h1>Cho Thuê & Chuyển Nhượng Căn Hộ Vinhomes Golden River Ba Son</h1>
+        <p>Giỏ hàng độc quyền căn hộ, Villa biệt thự ven sông, Penthouse view trực diện sông Sài Gòn & Thảo Cầm Viên</p>
+    </section>
+    <div style="display: flex; justify-content: center;">
+        <div class="search-container">
+            <div class="search-group">
+                <label>Nhu cầu</label>
+                <select id="filterType" onchange="updatePriceOptions(); filterProperties();">
+                    <option value="all">Tất cả nhu cầu</option>
+                    <option value="ban">Bán / Chuyển nhượng</option>
+                    <option value="thue">Cho thuê</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label>Loại sản phẩm</label>
+                <select id="filterBedroom" onchange="filterProperties()">
+                    <option value="all">Tất cả loại sản phẩm</option>
+                    <option value="villa">Villa / Biệt thự</option>
+                    <option value="1pn">1 Phòng Ngủ</option>
+                    <option value="2pn">2 Phòng Ngủ</option>
+                    <option value="3pn">3 Phòng Ngủ</option>
+                    <option value="4pn">4 Phòng Ngủ</option>
+                    <option value="over-4pn">Trên 4PN</option>
+                    <option value="duplex">Duplex</option>
+                    <option value="penthouse">Penthouse</option>
+                    <option value="shophouse">Shophouse</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label>Khoảng giá</label>
+                <div class="dropdown-toggle" id="priceDropdownToggle" onclick="togglePriceDropdown()">
+                    <span id="selectedPriceText" style="font-size: 13px;">Tất cả mức giá</span> <i class="fa-solid fa-chevron-down" style="float: right; margin-top: 3px;"></i>
+                </div>
+                <div class="price-dropdown-content" id="priceDropdownContent">
+                    <div class="price-dropdown-header">
+                        <span>Khoảng giá</span>
+                        <i class="fa-solid fa-xmark" onclick="togglePriceDropdown()"></i>
+                    </div>
+                    <div class="price-inputs">
+                        <input type="number" id="priceMin" placeholder="Từ">
+                        <span>→</span>
+                        <input type="number" id="priceMax" placeholder="Đến">
+                    </div>
+                    <div class="price-options-list" id="priceOptionsList"></div>
+                    <div class="price-dropdown-footer">
+                        <button class="btn-reset" onclick="resetPriceFilter()">Đặt lại</button>
+                        <button class="btn-apply" onclick="applyPriceFilter()">Áp dụng</button>
+                    </div>
+                </div>
+            </div>
+            <div class="search-group">
+                <button onclick="filterProperties()"><i class="fa-solid fa-search"></i> Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+    <main class="container">
+        <div class="section-title">
+            <h2>Giỏ Hàng Căn Hộ & Villa Vinhomes Golden River Độc Quyền</h2>
+        </div>
+        <div class="property-grid" id="propertyGrid"></div>
+        <!-- Khối nội dung SEO chuyên sâu giúp Google chấm điểm từ khóa cực cao -->
+        <section class="seo-content-box">
+            <h2>Dịch Vụ Cho Thuê & Chuyển Nhượng Vinhomes Golden River Ba Son Chính Chủ</h2>
+            <p>Khu đô thị phức hợp cao cấp <strong>Vinhomes Golden River</strong> (tọa lạc tại số 2 Tôn Đức Thắng, Phường Bến Nghé, Quận 1) được quy hoạch trên nền cảng Ba Son lịch sử, sở hữu vị trí vàng độc tôn hai mặt tiền đường Tôn Đức Thắng và Nguyễn Hữu Cảnh, trực diện bờ sông Sài Gòn và Thảo Cầm Viên. Đây là lựa chọn hàng đầu của cộng đồng thượng lưu và chuyên gia quốc tế tại Thành phố Hồ Chí Minh.</p>
+            <h3>Cập Nhật Giá Cho Thuê & Chuyển Nhượng Vinhomes Golden River Mới Nhất</h3>
+            <p>Mức <strong>giá thuê vinhomes golden river</strong> và thị trường chuyển nhượng hiện nay dao động linh hoạt theo phân khu (Aqua, The Luxury, The Victoria), tầm nhìn và thiết kế nội thất:</p>
+            <ul>
+                <li><strong>Căn hộ 1 phòng ngủ:</strong> Diện tích từ 45m² - 50m², không gian ấm cúng, thích hợp cho chuyên gia độc thân. Giá thuê từ 18 - 25 triệu/tháng.</li>
+                <li><strong>Căn hộ 2 phòng ngủ:</strong> Diện tích từ 68m² - 83m², thiết kế tối ưu công năng, view sông hoặc nội khu thoáng mát. Giá thuê từ 25 - 40 triệu/tháng.</li>
+                <li><strong>Căn hộ 3 - 4 phòng ngủ:</strong> Diện tích từ 100m² - 160m², không gian rộng rãi cho gia đình đa thế hệ. Giá thuê từ 45 - 75+ triệu/tháng.</li>
+                <li><strong>Villa Vinhomes Golden River & Penthouse:</strong> Dòng sản phẩm giới hạn đỉnh cao, đẳng cấp triệu đô ven sông Sài Gòn.</li>
+            </ul>
+            <h3>Vì Sao Nên Chọn Dịch Vụ Của Chúng Tôi?</h3>
+            <p>Nếu bạn đang tìm kiếm thông tin <strong>cho thuê căn hộ vinhomes golden river</strong> hoặc cần dịch vụ <strong>chuyển nhượng vinhomes golden river</strong> uy tín, chúng tôi cam kết giỏ hàng thực tế 100%, thương lượng trực tiếp chính chủ, hỗ trợ thủ tục pháp lý nhanh gọn và xem nhà miễn phí 24/7. Liên hệ ngay Hotline: <strong>0979.669.663</strong> để nhận bảng hàng chi tiết hôm nay!</p>
+        </section>
+    </main>
+    <!-- Modal Quản Trị (Xác thực Firebase Auth) -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeAdmin()">&times;</span>
+            <div id="loginFormContainer" class="login-box" style="display: none;">
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Đăng Nhập Quản Trị</h3>
+                <p style="font-size: 12px; color: var(--gray); margin-bottom: 15px;">Dùng Email/Mật khẩu Admin đã đăng ký trên Firebase</p>
+                <input type="email" id="adminEmail" placeholder="Email quản trị...">
+                <input type="password" id="adminPassword" placeholder="Mật khẩu...">
+                <button onclick="loginAdminAccount()">Đăng Nhập An Toàn</button>
+            </div>
+            <div id="adminPanelContainer" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 id="adminModalTitle" style="color: var(--primary);">Bảng Quản Trị Giỏ Hàng</h3>
+                    <button class="btn-del" style="padding: 5px 12px; font-size: 12px;" onclick="logoutAdminAccount()">Đăng Xuất</button>
+                </div>
+                <!-- Bổ sung tab Trợ Lý AI -->
+                <div class="admin-tabs" id="adminTabsHeader">
+                    <button class="admin-tab-btn active" onclick="switchTab('add')">Đăng Bài Mới</button>
+                    <button class="admin-tab-btn" onclick="switchTab('manage')">Xóa / Sửa / Quản Lý</button>
+                    <button class="admin-tab-btn" onclick="switchTab('ai')"><i class="fa-solid fa-robot" style="color: var(--accent);"></i> Trợ Lý AI</button>
+                </div>
+                <div class="admin-tab-content active" id="tabAdd">
+                    <input type="hidden" id="editFirestoreId" value="">
+                    <div class="form-row">
+                        <div class="form-group"><label>Nhu cầu</label>
+                            <select id="newType"><option value="ban">Bán / Chuyển nhượng</option><option value="thue">Cho thuê</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mã sản phẩm / Căn hộ</label>
+                            <input type="text" id="newCode" placeholder="VD: Aqua 1 - 12.05 hoặc V-05">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Loại sản phẩm</label>
+                            <select id="newBed">
+                                <option value="villa">Villa / Biệt thự</option>
+                                <option value="1pn">1 Phòng Ngủ</option>
+                                <option value="2pn" selected>2 Phòng Ngủ</option>
+                                <option value="3pn">3 Phòng Ngủ</option>
+                                <option value="4pn">4 Phòng Ngủ</option>
+                                <option value="over-4pn">Trên 4PN</option>
+                                <option value="duplex">Duplex</option>
+                                <option value="penthouse">Penthouse</option>
+                                <option value="shophouse">Shophouse</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Số WC</label>
+                            <select id="newWc">
+                                <option value="1 WC">1 WC</option>
+                                <option value="2 WC" selected>2 WC</option>
+                                <option value="3 WC">3 WC</option>
+                                <option value="4 WC">4 WC</option>
+                                <option value="5+ WC">5+ WC / Nguyên căn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Trạng thái (Chỉ Admin thấy trên web)</label>
+                            <select id="newStatus">
+                                <option value="normal">Bình thường</option>
+                                <option value="hot">🔥 HOT</option>
+                                <option value="sold">Đã Bán</option>
+                                <option value="rented">Đã Cho Thuê</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Diện tích (m²)</label>
+                            <input type="text" id="newArea" placeholder="VD: 87.7 m²">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Giá (Số để bộ lọc)</label>
+                            <input type="number" id="newPriceVal" placeholder="VD: 9.5 hoặc 35">
+                        </div>
+                        <div class="form-group">
+                            <label>Hiển thị Mức Giá</label>
+                            <input type="text" id="newPrice" placeholder="VD: 9.5 tỷ hoặc 35 triệu/tháng">
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Tiêu đề bài viết</label><input type="text" id="newTitle" placeholder="Tiêu đề căn hộ..."></div>
+                    <div class="form-group">
+                        <label>Quản lý & Sắp xếp Hình Ảnh (Cloudinary CDN)</label>
+                        <div class="upload-box" onclick="openCloudinaryWidget()">
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--accent);"></i>
+                            <p style="font-size: 13px; font-weight: 600; color: var(--primary); margin-top: 5px;">Bấm vào đây để chọn và tải thêm ảnh</p>
+                        </div>
+                        <div class="preview-thumbnails" id="previewThumbnails"></div>
+                    </div>
+                    <div class="form-group"><label>Mô tả chi tiết</label><textarea id="newDesc" rows="5" placeholder="Nhập thông tin chi tiết..."></textarea></div>
+                    <button class="btn-submit" id="btnSubmitPost" onclick="savePropertyToFirestore()">Đăng Bài Lên Firestore</button>
+                </div>
+                <div class="admin-tab-content" id="tabManage">
+                    <div style="max-height: 350px; overflow-y: auto;">
+                        <table class="manage-table">
+                            <thead><tr><th>Mã</th><th>Tiêu đề</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+                            <tbody id="manageBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Giao diện tab Trợ lý AI báo cáo chi tiết theo số phòng ngủ -->
+                <div class="admin-tab-content" id="tabAi">
+                    <div style="background: #fdfbf7; border: 1px solid var(--accent); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;"><i class="fa-solid fa-robot" style="color: var(--accent);"></i> Trợ Lý AI Báo Cáo Giá Tốt (Đã lọc căn đã bán/cho thuê)</h4>
+                        <p style="font-size: 12.5px; color: var(--gray); margin-bottom: 12px;">Bấm vào các nút bên dưới để Trợ lý tự động quét giỏ hàng trống và báo cáo căn giá tốt nhất theo từng loại phòng ngủ:</p>
+                        
+                        <div style="margin-bottom: 8px; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase;">🏠 Nhu cầu CHO THUÊ:</div>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+                            <button onclick="aiReportBed('thue', '1pn')" style="background: var(--primary); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">1PN Cho Thuê</button>
+                            <button onclick="aiReportBed('thue', '2pn')" style="background: var(--primary); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">2PN Cho Thuê</button>
+                            <button onclick="aiReportBed('thue', '3pn')" style="background: var(--primary); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">3PN Cho Thuê</button>
+                            <button onclick="aiReportBed('thue', '4pn')" style="background: var(--primary); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">4PN Cho Thuê</button>
+                        </div>
 
-        function savePropertyToFirestore() {            let editId = document.getElementById('editFirestoreId').value;            let code = document.getElementById('newCode').value.trim();            let type = document.getElementById('newType').value;            let bed = document.getElementById('newBed').value;            let wc = document.getElementById('newWc').value;            let status = document.getElementById('newStatus').value;            let priceVal = parseFloat(document.getElementById('newPriceVal').value) || 9.5;            let price = document.getElementById('newPrice').value || (priceVal + ' tỷ');            let area = document.getElementById('newArea').value || '87.7 m²';            let title = document.getElementById('newTitle').value;            let desc = document.getElementById('newDesc').value;
+                        <div style="margin-bottom: 8px; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase;">💎 Nhu cầu BÁN / CHUYỂN NHƯỢNG:</div>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <button onclick="aiReportBed('ban', '1pn')" style="background: var(--accent); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">1PN Chuyển Nhượng</button>
+                            <button onclick="aiReportBed('ban', '2pn')" style="background: var(--accent); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">2PN Chuyển Nhượng</button>
+                            <button onclick="aiReportBed('ban', '3pn')" style="background: var(--accent); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">3PN Chuyển Nhượng</button>
+                            <button onclick="aiReportBed('ban', '4pn')" style="background: var(--accent); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11.5px; cursor: pointer;">4PN Chuyển Nhượng</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kết quả phân tích từ Trợ Lý AI:</label>
+                        <div id="aiReportOutput" style="background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 15px; min-height: 180px; max-height: 280px; overflow-y: auto; font-size: 13.5px; line-height: 1.6; color: var(--dark);">
+                            <i>Chưa có báo cáo. Vui lòng bấm chọn các nút loại phòng ngủ phía trên để Trợ lý AI phân tích giỏ hàng.</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Chi tiết -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeDetail()">&times;</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 id="detTitle" style="color: var(--primary);"></h3>
+                <button class="admin-btn" style="padding: 5px 12px; font-size: 12px;" onclick="copyCurrentDetailLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>
+            </div>
+            <p id="detPrice" style="color: #e74c3c; font-weight: 800; font-size: 18px; margin-bottom: 8px;"></p>
+            <p id="detMeta" style="font-size: 13px; color: var(--gray); margin-bottom: 15px; font-weight: 600;"></p>
+            <div id="detGallery" style="display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;"></div>
+            <div class="detail-desc" id="detDesc"></div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2026 chothuecanhovinhomesgoldenriver.com - Hotline: 0979.669.663</p>
+    </footer>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0fXH9HR-Ptp6RjPoZJsVqqopK4qlP5wk",
+            authDomain: "chothuecanhovinhomes-fce30.firebaseapp.com",
+            projectId: "chothuecanhovinhomes-fce30",
+            storageBucket: "chothuecanhovinhomes-fce30.firebasestorage.app",
+            messagingSenderId: "613137405132",
+            appId: "1:613137405132:web:9fceba7cdc0d0bb65f5e69",
+            measurementId: "G-007F28NSLH"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let properties = [];
+        let filteredProperties = [];
+        let uploadedImageUrls = [];
+        let currentOpenPropertyId = null;
+        let isAdminLoggedIn = false;
+
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        const cloudinaryCloudName = "pcltgibz";
+        const cloudinaryUploadPreset = "vinhomes_preset";
+
+        auth.onAuthStateChanged((user) => {
+            isAdminLoggedIn = !!user;
+            renderGrid();
+            renderManage();
+        });
+
+        function openCloudinaryWidget() {
+            cloudinary.openUploadWidget({
+                cloudName: cloudinaryCloudName,
+                uploadPreset: cloudinaryUploadPreset,
+                sources: ['local', 'url', 'camera'],
+                multiple: true,
+                maxFiles: 15,
+                cropping: false,
+                clientAllowedFormats: ["image"]
+            }, (error, result) => {
+                if (!error && result && result.event === "success") {
+                    let secureUrl = result.info.secure_url;
+                    uploadedImageUrls.push(secureUrl);
+                    renderThumbnails();
+                }
+            });
+        }
+
+        function renderThumbnails() {
+            let thumbContainer = document.getElementById('previewThumbnails');
+            thumbContainer.innerHTML = '';
+            if (uploadedImageUrls.length === 0) {
+                thumbContainer.innerHTML = '<span style="font-size:12px; color:var(--gray); font-style:italic;">Chưa có hình ảnh nào được chọn.</span>';
+                return;
+            }
+            uploadedImageUrls.forEach((url, index) => {
+                let card = document.createElement('div');
+                card.className = 'thumb-card';
+                let isFirst = (index === 0);
+                let badgeCover = isFirst ? '<span style="position:absolute; bottom:2px; left:2px; background:var(--accent); color:#fff; font-size:9px; padding:1px 4px; border-radius:3px; font-weight:700;">Ảnh Bìa</span>' : '';
+                card.innerHTML = `
+                    <button class="thumb-del" onclick="removeImage(${index})" title="Xóa ảnh">&times;</button>
+                    <div class="thumb-img" style="background-image: url('${url}')"></div>
+                    ${badgeCover}
+                    <div class="thumb-actions">
+                        <button onclick="moveImage(${index}, -1)" title="Di chuyển lên trước" ${index === 0 ? 'style="opacity:0.3; cursor:not-allowed;"' : ''}><i class="fa-solid fa-chevron-left"></i></button>
+                        <span style="font-size:10px; color:#fff;">${index + 1}</span>
+                        <button onclick="moveImage(${index}, 1)" title="Di chuyển ra sau" ${index === uploadedImageUrls.length - 1 ? 'style="opacity:0.3; cursor:not-allowed;"' : ''}><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                `;
+                thumbContainer.appendChild(card);
+            });
+        }
+
+        function moveImage(index, direction) {
+            let targetIndex = index + direction;
+            if (targetIndex < 0 || targetIndex >= uploadedImageUrls.length) return;
+            let temp = uploadedImageUrls[index];
+            uploadedImageUrls[index] = uploadedImageUrls[targetIndex];
+            uploadedImageUrls[targetIndex] = temp;
+            renderThumbnails();
+        }
+
+        function removeImage(index) {
+            uploadedImageUrls.splice(index, 1);
+            renderThumbnails();
+        }
+
+        function loadDataFromFirebase() {
+            db.collection("properties").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+                properties = [];
+                snapshot.forEach((doc) => {
+                    properties.push({ firestoreId: doc.id, ...doc.data() });
+                });
+                updatePriceOptions();
+                filterProperties();
+                checkUrlForSharedProperty();
+            });
+        }
+
+        function checkUrlForSharedProperty() {
+            let hash = window.location.hash;
+            if (hash.includes("id=")) {
+                let targetId = hash.split("id=")[1];
+                let found = properties.find(p => p.firestoreId === targetId);
+                if (found) { openDetail(found); }
+            }
+        }
+
+        function goHome() {
+            window.location.hash = "";
+            closeDetail();
+            filterProperties();
+        }
+
+        function togglePriceDropdown() { document.getElementById('priceDropdownContent').classList.toggle('active'); }
+        window.onclick = function(e) { if (!e.target.closest('.search-group')) document.getElementById('priceDropdownContent').classList.remove('active'); }
+
+        function updatePriceOptions() {
+            const type = document.getElementById('filterType').value;
+            let html = `<label class="price-option-item"><input type="radio" name="priceRadio" value="all" checked onclick="selectRadioPrice('all', 'Tất cả mức giá')"> Tất cả khoảng giá</label>`;
+            if (type === 'thue') {
+                html += `<label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(0, 20, 'Dưới 20 Tr/tháng')"> Dưới 20 Triệu</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(20, 40, '20 - 40 Tr/tháng')"> 20 - 40 Triệu</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(40, 60, '40 - 60 Tr/tháng')"> 40 - 60 Triệu</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(60, 99999, 'Trên 60 Tr/tháng')"> Trên 60 Triệu</label>`;
+            } else {
+                html += `<label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(0, 10, 'Dưới 10 Tỷ')"> Dưới 10 Tỷ</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(10, 20, '10 - 20 Tỷ')"> 10 - 20 Tỷ</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(20, 50, '20 - 50 Tỷ')"> 20 - 50 Tỷ</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(50, 100, '50 - 100 Tỷ')"> 50 - 100 Tỷ</label>
+                         <label class="price-option-item"><input type="radio" name="priceRadio" onclick="selectRadioPrice(100, 99999, 'Trên 100 Tỷ')"> Trên 100 Tỷ</label>`;
+            }
+            document.getElementById('priceOptionsList').innerHTML = html;
+        }
+
+        function selectRadioPrice(min, max, label) {
+            document.getElementById('priceMin').value = min === 'all' ? '' : min;
+            document.getElementById('priceMax').value = max === 99999 ? '' : max;
+            document.getElementById('selectedPriceText').innerText = label;
+        }
+
+        let currentFilterMin = null, currentFilterMax = null;
+        function resetPriceFilter() {
+            document.getElementById('priceMin').value = ''; document.getElementById('priceMax').value = '';
+            document.getElementById('selectedPriceText').innerText = 'Tất cả mức giá';
+            currentFilterMin = null; currentFilterMax = null;
+            togglePriceDropdown(); filterProperties();
+        }
+        function applyPriceFilter() {
+            const min = document.getElementById('priceMin').value;
+            const max = document.getElementById('priceMax').value;
+            currentFilterMin = min !== '' ? parseFloat(min) : null;
+            currentFilterMax = max !== '' ? parseFloat(max) : null;
+            togglePriceDropdown(); filterProperties();
+        }
+
+        function filterProperties() {
+            let type = document.getElementById('filterType').value;
+            let bed = document.getElementById('filterBedroom').value;
+            filteredProperties = properties.filter(c => {
+                let matchType = (type === 'all' || c.type === type);
+                let matchBed = (bed === 'all' || c.bed === bed);
+                let matchPrice = true;
+                if (currentFilterMin !== null && (c.priceVal || 0) < currentFilterMin) matchPrice = false;
+                if (currentFilterMax !== null && (c.priceVal || 0) > currentFilterMax) matchPrice = false;
+                return matchType && matchBed && matchPrice;
+            });
+            renderGrid();
+        }
+
+        function renderGrid() {
+            let grid = document.getElementById('propertyGrid');
+            grid.innerHTML = '';
+            if(filteredProperties.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--gray); padding: 30px;">Không tìm thấy sản phẩm phù hợp.</p>';
+                renderManage();
+                return;
+            }
+            filteredProperties.forEach(p => {
+                let card = document.createElement('div');
+                card.className = 'property-card';
+                card.onclick = () => openDetail(p);
+                let coverImg = (p.imgs && p.imgs.length > 0) ? p.imgs[0] : 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80';
+                
+                let bedLabel = '2 PN';
+                if (p.bed === 'villa') bedLabel = 'Villa';
+                else if (p.bed === 'duplex') bedLabel = 'Duplex';
+                else if (p.bed === 'penthouse') bedLabel = 'Penthouse';
+                else if (p.bed === 'shophouse') bedLabel = 'Shophouse';
+                else if (p.bed === 'over-4pn') bedLabel = '> 4 PN';
+                else if (p.bed) bedLabel = p.bed.toUpperCase().replace('PN', ' PN');
+
+                let statusBadgeHTML = '';
+                if (isAdminLoggedIn && p.status && p.status !== 'normal') {
+                    if (p.status === 'hot') statusBadgeHTML = `<span class="admin-status-badge badge-hot">🔥 HOT</span>`;
+                    else if (p.status === 'sold') statusBadgeHTML = `<span class="admin-status-badge badge-sold">Đã Bán</span>`;
+                    else if (p.status === 'rented') statusBadgeHTML = `<span class="admin-status-badge badge-rented">Đã Cho Thuê</span>`;
+                }
+
+                let adminCodeBadgeHTML = '';
+                if (isAdminLoggedIn && p.code) {
+                    adminCodeBadgeHTML = `<span style="position: absolute; top: 12px; left: 115px; background: #0f1c24; color: #c5a059; border: 1px solid #c5a059; padding: 5px 9px; font-size: 11px; font-weight: 800; border-radius: 4px; z-index: 6; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">Mã: ${p.code}</span>`;
+                }
+
+                card.innerHTML = `
+                    <div class="property-img" style="background-image: url('${coverImg}')">
+                        <span class="property-badge">${p.type === 'ban' ? 'Chuyển Nhượng' : 'Cho Thuê'}</span>
+                        ${statusBadgeHTML}
+                        ${adminCodeBadgeHTML}
+                        <button class="card-share-btn" onclick="copyPropertyLink(event, '${p.firestoreId}')"><i class="fa-solid fa-copy"></i> Copy Link</button>
+                        <span style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px;"><i class="fa-solid fa-images" style="color: #f39c12;"></i> ${p.imgs ? p.imgs.length : 1}</span>
+                    </div>
+                    <div class="property-content">
+                        <div>
+                            <div class="property-title">${p.title}</div>
+                            <div class="property-price">${p.price}</div>
+                        </div>
+                        <div class="property-meta">
+                            <span><i class="fa-solid fa-house"></i> ${bedLabel}</span>
+                            <span><i class="fa-solid fa-bath"></i> ${p.wc || '2 WC'}</span>
+                            <span><i class="fa-regular fa-square"></i> ${p.area || '80 m²'}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            renderManage();
+        }
+
+        function renderManage() {
+            let body = document.getElementById('manageBody');
+            body.innerHTML = '';
+            if(properties.length === 0) {
+                body.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--gray);">Chưa có bài viết nào</td></tr>';
+                return;
+            }
+            properties.forEach(p => {
+                let tr = document.createElement('tr');
+                let displayCode = p.code ? `<span style="background: var(--primary); color: var(--accent); padding: 3px 7px; border-radius: 4px; font-size: 11px; font-weight: 700;">${p.code}</span>` : '<span style="color: var(--gray); font-style: italic;">Chưa có</span>';
+                
+                let statusLabel = 'Bình thường';
+                if(p.status === 'hot') statusLabel = '<span style="color:#e74c3c; font-weight:bold;">🔥 HOT</span>';
+                else if(p.status === 'sold') statusLabel = '<span style="color:#8e44ad; font-weight:bold;">Đã Bán</span>';
+                else if(p.status === 'rented') statusLabel = '<span style="color:#27ae60; font-weight:bold;">Đã Cho Thuê</span>';
+
+                let pDataStr = encodeURIComponent(JSON.stringify(p));
+                tr.innerHTML = `
+                    <td>${displayCode}</td>
+                    <td><b>${p.title}</b></td>
+                    <td style="color: #e74c3c; font-weight:600;">${p.price}</td>
+                    <td>${statusLabel}</td>
+                    <td>
+                        <button class="btn-edit" onclick="startEditProperty('${p.firestoreId}', decodeURIComponent('${pDataStr}'))">Sửa</button>
+                        <button class="btn-del" onclick="removeProp('${p.firestoreId}')">Xóa</button>
+                        <button class="btn-share" onclick="copyPropertyLinkDirect('${p.firestoreId}')">Copy Link</button>
+                    </td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        // --- TRỢ LÝ AI BÁO CÁO GIÁ TỐT THEO SỐ PHÒNG NGỦ (ĐÃ LỌC BỎ ĐÃ BÁN / CHO THUÊ) ---
+        function aiReportBed(type, bedType) {
+            let list = properties.filter(p => {
+                let matchType = (p.type === type);
+                let matchBed = (p.bed === bedType);
+                let notSoldOrRented = (p.status !== 'sold' && p.status !== 'rented');
+                return matchType && matchBed && notSoldOrRented;
+            });
+
+            let typeName = (type === 'ban') ? 'Chuyển Nhượng' : 'Cho Thuê';
+            let bedName = bedType.toUpperCase().replace('PN', ' Phòng Ngủ');
+
+            if (list.length === 0) {
+                document.getElementById('aiReportOutput').innerHTML = `<b>Trợ lý AI báo cáo:</b> Hiện tại giỏ hàng trống không có căn <b>${bedName} (${typeName})</b> nào (hoặc các căn đã được đánh dấu Đã Bán / Đã Cho Thuê).`;
+                return;
+            }
+
+            list.sort((a, b) => (a.priceVal || 0) - (b.priceVal || 0));
+            let topBest = list.slice(0, 5);
+
+            let html = `<b style="color: var(--primary);">🤖 Top ${topBest.length} căn ${bedName} (${typeName}) có giá tốt nhất hiện tại:</b><br><br>`;
+            topBest.forEach((p, idx) => {
+                let statusTag = (p.status === 'hot') ? ' <span style="background:#e74c3c; color:#fff; font-size:9px; padding:2px 5px; border-radius:3px;">🔥 HOT</span>' : '';
+                html += `<b>${idx + 1}. [Mã: ${p.code || 'Không có'}] ${p.title}</b>${statusTag}<br>`;
+                html += `💰 Giá: <span style="color: #e74c3c; font-weight: bold;">${p.price}</span> | Diện tích: ${p.area} | WC: ${p.wc || '2 WC'}<br>`;
+                html += `👉 <a href="#id=${p.firestoreId}" onclick="closeAdmin();" style="color: #0068ff; text-decoration: underline;">Xem chi tiết căn này</a><br><hr style="margin: 6px 0; border:0; border-top:1px dashed var(--border);">`;
+            });
+            document.getElementById('aiReportOutput').innerHTML = html;
+        }
+
+        function startEditProperty(firestoreId, jsonStr) {
+            let p = JSON.parse(jsonStr);
+            switchTab('add');
+            document.getElementById('editFirestoreId').value = firestoreId;
+            document.getElementById('newType').value = p.type || 'ban';
+            document.getElementById('newCode').value = p.code || '';
+            document.getElementById('newBed').value = p.bed || '2pn';
+            document.getElementById('newWc').value = p.wc || '2 WC';
+            document.getElementById('newStatus').value = p.status || 'normal';
+            document.getElementById('newPriceVal').value = p.priceVal || '';
+            document.getElementById('newPrice').value = p.price || '';
+            document.getElementById('newArea').value = p.area || '';
+            document.getElementById('newTitle').value = p.title || '';
+            document.getElementById('newDesc').value = p.desc || '';
+            
+            uploadedImageUrls = p.imgs || [];
+            renderThumbnails();
+
+            document.getElementById('btnSubmitPost').innerText = "Cập Nhật & Đưa Lên Đầu Trang";
+            document.getElementById('adminModalTitle').innerText = "Chỉnh Sửa Sản Phẩm";
+            document.getElementById('adminTabsHeader').style.display = 'none';
+        }
+
+        function savePropertyToFirestore() {
+            let editId = document.getElementById('editFirestoreId').value;
+            let code = document.getElementById('newCode').value.trim();
+            let type = document.getElementById('newType').value;
+            let bed = document.getElementById('newBed').value;
+            let wc = document.getElementById('newWc').value;
+            let status = document.getElementById('newStatus').value;
+            let priceVal = parseFloat(document.getElementById('newPriceVal').value) || 9.5;
+            let price = document.getElementById('newPrice').value || (priceVal + ' tỷ');
+            let area = document.getElementById('newArea').value || '87.7 m²';
+            let title = document.getElementById('newTitle').value;
+            let desc = document.getElementById('newDesc').value;
 
             if(!title || !price) { alert('Vui lòng điền tiêu đề và mức giá!'); return; }
 
-            // Kiểm tra trùng mã căn (nếu có nhập mã)
+            // Kiểm tra trùng mã căn: Chỉ chặn nếu TRÙNG MÃ VÀ TRÙNG NHU CẦU (Cho thuê trùng cho thuê, Bán trùng bán)
             if(code !== '') {
                 let lowerCode = code.toLowerCase();
-                let duplicate = properties.find(p => p.code && p.code.toLowerCase() === lowerCode && p.firestoreId !== editId);
+                let duplicate = properties.find(p => p.code && p.code.toLowerCase() === lowerCode && p.type === type && p.firestoreId !== editId);
                 if(duplicate) {
-                    alert(`⚠️ Cảnh báo: Mã căn "${code}" đã tồn tại trong hệ thống (Tiêu đề: "${duplicate.title}"). Vui lòng kiểm tra lại mã căn!`);
+                    let typeName = (type === 'ban') ? 'Bán / Chuyển nhượng' : 'Cho thuê';
+                    alert(`⚠️ Cảnh báo: Mã căn "${code}" với nhu cầu "${typeName}" đã tồn tại trong hệ thống (Tiêu đề: "${duplicate.title}"). Vui lòng kiểm tra lại!`);
                     return;
                 }
             }
 
-            if(uploadedImageUrls.length === 0) {                uploadedImageUrls.push('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80');            }
+            if(uploadedImageUrls.length === 0) {
+                uploadedImageUrls.push('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80');
+            }
 
             let postData = { code, type, bed, wc, status, priceVal, title, price, area, imgs: uploadedImageUrls, desc };
-            
-            // Khi thêm mới hoặc chỉnh sửa đều cập nhật createdAt thành thời điểm hiện tại để đưa lên đầu trang
             postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
 
-            if (editId) {                db.collection("properties").doc(editId).update(postData).then(() => {                    alert('Cập nhật và đưa lên đầu trang thành công!');                    resetAdminForm();                    closeAdmin();                }).catch(err => alert('Lỗi: ' + err.message));            } else {                db.collection("properties").add(postData).then(() => {                    alert('Đăng bài mới thành công!');                    resetAdminForm();                    closeAdmin();                }).catch(err => alert('Lỗi: ' + err.message));            }        }
+            if (editId) {
+                db.collection("properties").doc(editId).update(postData).then(() => {
+                    alert('Cập nhật và đưa lên đầu trang thành công!');
+                    resetAdminForm();
+                    closeAdmin();
+                }).catch(err => alert('Lỗi: ' + err.message));
+            } else {
+                db.collection("properties").add(postData).then(() => {
+                    alert('Đăng bài mới thành công!');
+                    resetAdminForm();
+                    closeAdmin();
+                }).catch(err => alert('Lỗi: ' + err.message));
+            }
+        }
 
-        function resetAdminForm() {            document.getElementById('editFirestoreId').value = '';            document.getElementById('newCode').value = '';            document.getElementById('newTitle').value = '';            document.getElementById('newPrice').value = '';            document.getElementById('newPriceVal').value = '';            document.getElementById('newArea').value = '';            document.getElementById('newStatus').value = 'normal';            document.getElementById('newDesc').value = '';            uploadedImageUrls = [];            renderThumbnails();            document.getElementById('btnSubmitPost').innerText = "Đăng Bài Lên Firestore";            document.getElementById('adminModalTitle').innerText = "Bảng Quản Trị Giỏ Hàng";            document.getElementById('adminTabsHeader').style.display = 'flex';        }
+        function resetAdminForm() {
+            document.getElementById('editFirestoreId').value = '';
+            document.getElementById('newCode').value = '';
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newPrice').value = '';
+            document.getElementById('newPriceVal').value = '';
+            document.getElementById('newArea').value = '';
+            document.getElementById('newStatus').value = 'normal';
+            document.getElementById('newDesc').value = '';
+            uploadedImageUrls = [];
+            renderThumbnails();
+            document.getElementById('btnSubmitPost').innerText = "Đăng Bài Lên Firestore";
+            document.getElementById('adminModalTitle').innerText = "Bảng Quản Trị Giỏ Hàng";
+            document.getElementById('adminTabsHeader').style.display = 'flex';
+        }
 
-        function copyPropertyLink(event, firestoreId) {            event.stopPropagation();            let shareLink = `${window.location.href.split('#')[0]}#id=${firestoreId}`;            navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));        }
+        function copyPropertyLink(event, firestoreId) {
+            event.stopPropagation();
+            let shareLink = `${window.location.href.split('#')[0]}#id=${firestoreId}`;
+            navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));
+        }
 
-        function copyPropertyLinkDirect(firestoreId) {            let shareLink = `${window.location.href.split('#')[0]}#id=${firestoreId}`;            navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));        }
+        function copyPropertyLinkDirect(firestoreId) {
+            let shareLink = `${window.location.href.split('#')[0]}#id=${firestoreId}`;
+            navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));
+        }
 
-        function copyCurrentDetailLink() {            if (currentOpenPropertyId) {                let shareLink = `${window.location.href.split('#')[0]}#id=${currentOpenPropertyId}`;                navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));            }        }
+        function copyCurrentDetailLink() {
+            if (currentOpenPropertyId) {
+                let shareLink = `${window.location.href.split('#')[0]}#id=${currentOpenPropertyId}`;
+                navigator.clipboard.writeText(shareLink).then(() => alert('Đã copy link sản phẩm!'));
+            }
+        }
 
-        function removeProp(firestoreId) {            if(!firestoreId) return;            if(confirm('Xóa bài này vĩnh viễn?')) {                db.collection("properties").doc(firestoreId).delete().then(() => alert('Đã xóa thành công!'));            }        }
+        function removeProp(firestoreId) {
+            if(!firestoreId) return;
+            if(confirm('Xóa bài này vĩnh viễn?')) {
+                db.collection("properties").doc(firestoreId).delete().then(() => alert('Đã xóa thành công!'));
+            }
+        }
 
-        function openDetail(p) {            currentOpenPropertyId = p.firestoreId;            window.location.hash = `id=${p.firestoreId}`;            document.getElementById('detTitle').innerText = p.title;            document.getElementById('detPrice').innerText = p.price;                        let bedLabel = '2 PN';            if (p.bed === 'villa') bedLabel = 'Villa';            else if (p.bed === 'duplex') bedLabel = 'Duplex';            else if (p.bed === 'penthouse') bedLabel = 'Penthouse';            else if (p.bed === 'shophouse') bedLabel = 'Shophouse';            else if (p.bed === 'over-4pn') bedLabel = '> 4 PN';            else if (p.bed) bedLabel = p.bed.toUpperCase().replace('PN', ' PN');
+        function openDetail(p) {
+            currentOpenPropertyId = p.firestoreId;
+            window.location.hash = `id=${p.firestoreId}`;
+            document.getElementById('detTitle').innerText = p.title;
+            document.getElementById('detPrice').innerText = p.price;
+            
+            let bedLabel = '2 PN';
+            if (p.bed === 'villa') bedLabel = 'Villa';
+            else if (p.bed === 'duplex') bedLabel = 'Duplex';
+            else if (p.bed === 'penthouse') bedLabel = 'Penthouse';
+            else if (p.bed === 'shophouse') bedLabel = 'Shophouse';
+            else if (p.bed === 'over-4pn') bedLabel = '> 4 PN';
+            else if (p.bed) bedLabel = p.bed.toUpperCase().replace('PN', ' PN');
 
-            document.getElementById('detMeta').innerText = `${p.area} | ${bedLabel} | ${p.wc || '2 WC'}`;            document.getElementById('detDesc').innerText = p.desc || 'Đang cập nhật...';                        let gallery = document.getElementById('detGallery');            gallery.innerHTML = '';            if(p.imgs && p.imgs.length > 0) {                p.imgs.forEach((url, index) => {                    let img = document.createElement('img');                    img.src = url;                    img.onclick = (e) => { e.stopPropagation(); openLightbox(p.imgs, index); };                    img.style.cssText = "width: 130px; height: 90px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); flex-shrink: 0; cursor: zoom-in;";                    gallery.appendChild(img);                });            }            document.getElementById('detailModal').classList.add('active');        }
+            document.getElementById('detMeta').innerText = `${p.area} | ${bedLabel} | ${p.wc || '2 WC'}`;
+            document.getElementById('detDesc').innerText = p.desc || 'Đang cập nhật...';
+            
+            let gallery = document.getElementById('detGallery');
+            gallery.innerHTML = '';
+            if(p.imgs && p.imgs.length > 0) {
+                p.imgs.forEach((url, index) => {
+                    let img = document.createElement('img');
+                    img.src = url;
+                    img.onclick = (e) => { e.stopPropagation(); openLightbox(p.imgs, index); };
+                    img.style.cssText = "width: 130px; height: 90px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); flex-shrink: 0; cursor: zoom-in;";
+                    gallery.appendChild(img);
+                });
+            }
+            document.getElementById('detailModal').classList.add('active');
+        }
 
-        function closeDetail() {            currentOpenPropertyId = null;            if(window.location.hash.includes("id=")) { window.location.hash = ""; }            document.getElementById('detailModal').classList.remove('active');        }
+        function closeDetail() {
+            currentOpenPropertyId = null;
+            if(window.location.hash.includes("id=")) { window.location.hash = ""; }
+            document.getElementById('detailModal').classList.remove('active');
+        }
 
-        function openLightbox(imagesArray, startIndex) {            currentLightboxImages = imagesArray;            currentLightboxIndex = startIndex;            updateLightboxView();            document.getElementById('lightboxModal').classList.add('active');        }
+        function openLightbox(imagesArray, startIndex) {
+            currentLightboxImages = imagesArray;
+            currentLightboxIndex = startIndex;
+            updateLightboxView();
+            document.getElementById('lightboxModal').classList.add('active');
+        }
 
-        function changeLightboxImage(direction) {            currentLightboxIndex += direction;            if (currentLightboxIndex < 0) currentLightboxIndex = currentLightboxImages.length - 1;            else if (currentLightboxIndex >= currentLightboxImages.length) currentLightboxIndex = 0;            updateLightboxView();        }
+        function changeLightboxImage(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex < 0) currentLightboxIndex = currentLightboxImages.length - 1;
+            else if (currentLightboxIndex >= currentLightboxImages.length) currentLightboxIndex = 0;
+            updateLightboxView();
+        }
 
-        function updateLightboxView() {            document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];            document.getElementById('lightboxCounter').innerText = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;        }
+        function updateLightboxView() {
+            document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+            document.getElementById('lightboxCounter').innerText = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+        }
 
         function closeLightbox() { document.getElementById('lightboxModal').classList.remove('active'); }
 
-        function switchTab(tab) {            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));            if(tab === 'add') {                document.querySelectorAll('.admin-tab-btn')[0].classList.add('active');                document.getElementById('tabAdd').classList.add('active');            } else {                document.querySelectorAll('.admin-tab-btn')[1].classList.add('active');                document.getElementById('tabManage').classList.add('active');            }        }
+        function switchTab(tab) {
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+            if(tab === 'add') {
+                document.querySelectorAll('.admin-tab-btn')[0].classList.add('active');
+                document.getElementById('tabAdd').classList.add('active');
+            } else if(tab === 'manage') {
+                document.querySelectorAll('.admin-tab-btn')[1].classList.add('active');
+                document.getElementById('tabManage').classList.add('active');
+            } else if(tab === 'ai') {
+                document.querySelectorAll('.admin-tab-btn')[2].classList.add('active');
+                document.getElementById('tabAi').classList.add('active');
+            }
+        }
 
-        function openAdmin() {            document.getElementById('adminModal').classList.add('active');            const currentUser = auth.currentUser;            if (currentUser) {                document.getElementById('loginFormContainer').style.display = 'none';                document.getElementById('adminPanelContainer').style.display = 'block';                renderManage();            } else {                document.getElementById('loginFormContainer').style.display = 'block';                document.getElementById('adminPanelContainer').style.display = 'none';            }        }
+        function openAdmin() {
+            document.getElementById('adminModal').classList.add('active');
+            const currentUser = auth.currentUser;
+            if (currentUser) {
+                document.getElementById('loginFormContainer').style.display = 'none';
+                document.getElementById('adminPanelContainer').style.display = 'block';
+                renderManage();
+            } else {
+                document.getElementById('loginFormContainer').style.display = 'block';
+                document.getElementById('adminPanelContainer').style.display = 'none';
+            }
+        }
 
-        function loginAdminAccount() {            let email = document.getElementById('adminEmail').value.trim();            let pass = document.getElementById('adminPassword').value.trim();            if (!email || !pass) {                alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');                return;            }            auth.signInWithEmailAndPassword(email, pass)                .then(() => {                    alert('Đăng nhập quản trị thành công!');                    document.getElementById('loginFormContainer').style.display = 'none';                    document.getElementById('adminPanelContainer').style.display = 'block';                    renderManage();                })                .catch((error) => {                    alert('Đăng nhập thất bại: ' + error.message);                });        }
+        function loginAdminAccount() {
+            let email = document.getElementById('adminEmail').value.trim();
+            let pass = document.getElementById('adminPassword').value.trim();
+            if (!email || !pass) {
+                alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
+                return;
+            }
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(() => {
+                    alert('Đăng nhập quản trị thành công!');
+                    document.getElementById('loginFormContainer').style.display = 'none';
+                    document.getElementById('adminPanelContainer').style.display = 'block';
+                    renderManage();
+                })
+                .catch((error) => {
+                    alert('Đăng nhập thất bại: ' + error.message);
+                });
+        }
 
-        function logoutAdminAccount() {            auth.signOut().then(() => {                alert('Đã đăng xuất hệ thống!');                closeAdmin();            });        }
+        function logoutAdminAccount() {
+            auth.signOut().then(() => {
+                alert('Đã đăng xuất hệ thống!');
+                closeAdmin();
+            });
+        }
 
-        function closeAdmin() {            document.getElementById('adminModal').classList.remove('active');            resetAdminForm();        }
+        function closeAdmin() {
+            document.getElementById('adminModal').classList.remove('active');
+            resetAdminForm();
+        }
 
-        window.onload = loadDataFromFirebase;    </script></body></html>
+        window.onload = loadDataFromFirebase;
+    </script>
+</body>
+</html>

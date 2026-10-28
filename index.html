@@ -298,6 +298,16 @@
                             <input type="text" id="newCode" placeholder="VD: Aqua 1 - 12.05 hoặc V-05">
                         </div>
                     </div>
+                    <!-- Ô nhập SĐT bảo mật chỉ Admin thấy -->
+                    <div class="form-group">
+                        <label>📞 Số điện thoại liên hệ / Chủ nhà (Chỉ Admin thấy)</label>
+                        <input type="text" id="newPhone" placeholder="VD: 0979669663 hoặc 090... (Bảo mật tuyệt đối)">
+                    </div>
+                    <!-- Ô nhập Ghi chú nội bộ chỉ Admin thấy -->
+                    <div class="form-group">
+                        <label>📝 Ghi chú nội bộ (Chỉ Admin thấy: Mã khóa, hoa hồng, chủ gửi...)</label>
+                        <textarea id="newNote" rows="2" placeholder="Nhập ghi chú riêng cho căn này..."></textarea>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
@@ -364,7 +374,7 @@
                 <div class="admin-tab-content" id="tabManage">
                     <div style="max-height: 350px; overflow-y: auto;">
                         <table class="manage-table">
-                            <thead><tr><th>Mã</th><th>Tiêu đề</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+                            <thead><tr><th>Mã</th><th>Tiêu đề & Thông tin Admin</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
                             <tbody id="manageBody"></tbody>
                         </table>
                     </div>
@@ -410,6 +420,13 @@
                 <button class="admin-btn" style="padding: 5px 12px; font-size: 12px;" onclick="copyCurrentDetailLink()"><i class="fa-solid fa-copy"></i> Copy Link</button>
             </div>
             <p id="detPrice" style="color: #e74c3c; font-weight: 800; font-size: 18px; margin-bottom: 8px;"></p>
+            
+            <!-- Khung SĐT & Ghi chú chỉ Admin thấy -->
+            <div id="detAdminInfoBox" style="display: none; background: #fff8e1; border: 1px dashed var(--accent); padding: 10px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: var(--primary);">
+                <div style="font-weight: 700; margin-bottom: 4px;">📞 SĐT Liên Hệ: <a id="detPhoneLink" href="#" style="color: #e74c3c; text-decoration: underline;"></a></div>
+                <div style="font-weight: 600; color: #555;">📝 Ghi chú nội bộ: <span id="detNoteSpan" style="font-style: italic;"></span></div>
+            </div>
+
             <p id="detMeta" style="font-size: 13px; color: var(--gray); margin-bottom: 15px; font-weight: 600;"></p>
             <div id="detGallery" style="display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;"></div>
             <div class="detail-desc" id="detDesc"></div>
@@ -621,8 +638,16 @@
                 }
 
                 let adminCodeBadgeHTML = '';
-                if (isAdminLoggedIn && p.code) {
-                    adminCodeBadgeHTML = `<span style="position: absolute; top: 12px; left: 115px; background: #0f1c24; color: #c5a059; border: 1px solid #c5a059; padding: 5px 9px; font-size: 11px; font-weight: 800; border-radius: 4px; z-index: 6; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">Mã: ${p.code}</span>`;
+                let adminInfoHTML = '';
+                if (isAdminLoggedIn) {
+                    if (p.code) {
+                        adminCodeBadgeHTML = `<span style="position: absolute; top: 12px; left: 115px; background: #0f1c24; color: #c5a059; border: 1px solid #c5a059; padding: 5px 9px; font-size: 11px; font-weight: 800; border-radius: 4px; z-index: 6; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">Mã: ${p.code}</span>`;
+                    }
+                    let phoneStr = p.phone ? `<div style="color: #d35400; font-weight: 700;"><i class="fa-solid fa-phone"></i> SĐT: ${p.phone}</div>` : '';
+                    let noteStr = p.note ? `<div style="color: #555; font-size: 11px; font-style: italic; margin-top: 2px;">📝 ${p.note}</div>` : '';
+                    if (p.phone || p.note) {
+                        adminInfoHTML = `<div style="background: #fff8e1; font-size: 11.5px; padding: 6px 8px; border-radius: 4px; margin-top: 8px; border: 1px dashed #c5a059;">${phoneStr}${noteStr}</div>`;
+                    }
                 }
 
                 card.innerHTML = `
@@ -637,6 +662,7 @@
                         <div>
                             <div class="property-title">${p.title}</div>
                             <div class="property-price">${p.price}</div>
+                            ${adminInfoHTML}
                         </div>
                         <div class="property-meta">
                             <span><i class="fa-solid fa-house"></i> ${bedLabel}</span>
@@ -666,10 +692,13 @@
                 else if(p.status === 'sold') statusLabel = '<span style="color:#8e44ad; font-weight:bold;">Đã Bán</span>';
                 else if(p.status === 'rented') statusLabel = '<span style="color:#27ae60; font-weight:bold;">Đã Cho Thuê</span>';
 
+                let adminInfoManage = `<br><span style="font-size:11px; color:#d35400;">📞 SĐT: ${p.phone || 'Chưa có'}</span>`;
+                if(p.note) adminInfoManage += `<br><span style="font-size:11px; color:#555; font-style:italic;">📝 ${p.note}</span>`;
+
                 let pDataStr = encodeURIComponent(JSON.stringify(p));
                 tr.innerHTML = `
                     <td>${displayCode}</td>
-                    <td><b>${p.title}</b></td>
+                    <td><b>${p.title}</b>${adminInfoManage}</td>
                     <td style="color: #e74c3c; font-weight:600;">${p.price}</td>
                     <td>${statusLabel}</td>
                     <td>
@@ -682,7 +711,7 @@
             });
         }
 
-        // --- TRỢ LÝ AI BÁO CÁO GIÁ TỐT THEO SỐ PHÒNG NGỦ (ĐÃ LỌC BỎ ĐÃ BÁN / CHO THUÊ) ---
+        // --- TRỢ LÝ AI BÁO CÁO GIÁ TỐT THEO SỐ PHÒNG NGỦ ---
         function aiReportBed(type, bedType) {
             let list = properties.filter(p => {
                 let matchType = (p.type === type);
@@ -705,8 +734,10 @@
             let html = `<b style="color: var(--primary);">🤖 Top ${topBest.length} căn ${bedName} (${typeName}) có giá tốt nhất hiện tại:</b><br><br>`;
             topBest.forEach((p, idx) => {
                 let statusTag = (p.status === 'hot') ? ' <span style="background:#e74c3c; color:#fff; font-size:9px; padding:2px 5px; border-radius:3px;">🔥 HOT</span>' : '';
+                let phoneInfo = p.phone ? ` | 📞 SĐT: <b style="color:#d35400;">${p.phone}</b>` : '';
+                let noteInfo = p.note ? `<br>📝 Ghi chú: <i style="color:#555;">${p.note}</i>` : '';
                 html += `<b>${idx + 1}. [Mã: ${p.code || 'Không có'}] ${p.title}</b>${statusTag}<br>`;
-                html += `💰 Giá: <span style="color: #e74c3c; font-weight: bold;">${p.price}</span> | Diện tích: ${p.area} | WC: ${p.wc || '2 WC'}<br>`;
+                html += `💰 Giá: <span style="color: #e74c3c; font-weight: bold;">${p.price}</span> | Diện tích: ${p.area} | WC: ${p.wc || '2 WC'}${phoneInfo}${noteInfo}<br>`;
                 html += `👉 <a href="#id=${p.firestoreId}" onclick="closeAdmin();" style="color: #0068ff; text-decoration: underline;">Xem chi tiết căn này</a><br><hr style="margin: 6px 0; border:0; border-top:1px dashed var(--border);">`;
             });
             document.getElementById('aiReportOutput').innerHTML = html;
@@ -718,6 +749,8 @@
             document.getElementById('editFirestoreId').value = firestoreId;
             document.getElementById('newType').value = p.type || 'ban';
             document.getElementById('newCode').value = p.code || '';
+            document.getElementById('newPhone').value = p.phone || '';
+            document.getElementById('newNote').value = p.note || '';
             document.getElementById('newBed').value = p.bed || '2pn';
             document.getElementById('newWc').value = p.wc || '2 WC';
             document.getElementById('newStatus').value = p.status || 'normal';
@@ -738,6 +771,8 @@
         function savePropertyToFirestore() {
             let editId = document.getElementById('editFirestoreId').value;
             let code = document.getElementById('newCode').value.trim();
+            let phone = document.getElementById('newPhone').value.trim();
+            let note = document.getElementById('newNote').value.trim();
             let type = document.getElementById('newType').value;
             let bed = document.getElementById('newBed').value;
             let wc = document.getElementById('newWc').value;
@@ -750,7 +785,7 @@
 
             if(!title || !price) { alert('Vui lòng điền tiêu đề và mức giá!'); return; }
 
-            // Kiểm tra trùng mã căn: Chỉ chặn nếu TRÙNG MÃ VÀ TRÙNG NHU CẦU (Cho thuê trùng cho thuê, Bán trùng bán)
+            // Kiểm tra trùng mã căn: Chỉ chặn nếu TRÙNG MÃ VÀ TRÙNG NHU CẦU
             if(code !== '') {
                 let lowerCode = code.toLowerCase();
                 let duplicate = properties.find(p => p.code && p.code.toLowerCase() === lowerCode && p.type === type && p.firestoreId !== editId);
@@ -765,7 +800,7 @@
                 uploadedImageUrls.push('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80');
             }
 
-            let postData = { code, type, bed, wc, status, priceVal, title, price, area, imgs: uploadedImageUrls, desc };
+            let postData = { code, phone, note, type, bed, wc, status, priceVal, title, price, area, imgs: uploadedImageUrls, desc };
             postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
 
             if (editId) {
@@ -786,6 +821,8 @@
         function resetAdminForm() {
             document.getElementById('editFirestoreId').value = '';
             document.getElementById('newCode').value = '';
+            document.getElementById('newPhone').value = '';
+            document.getElementById('newNote').value = '';
             document.getElementById('newTitle').value = '';
             document.getElementById('newPrice').value = '';
             document.getElementById('newPriceVal').value = '';
@@ -830,6 +867,31 @@
             document.getElementById('detTitle').innerText = p.title;
             document.getElementById('detPrice').innerText = p.price;
             
+            // Hiển thị SĐT và Ghi chú trong modal chi tiết nếu đã đăng nhập Admin
+            let adminInfoBox = document.getElementById('detAdminInfoBox');
+            if (isAdminLoggedIn && (p.phone || p.note)) {
+                adminInfoBox.style.display = 'block';
+                let phoneLink = document.getElementById('detPhoneLink');
+                let noteSpan = document.getElementById('detNoteSpan');
+                
+                if(p.phone) {
+                    phoneLink.innerText = p.phone;
+                    phoneLink.href = `tel:${p.phone}`;
+                    phoneLink.parentElement.style.display = 'block';
+                } else {
+                    phoneLink.parentElement.style.display = 'none';
+                }
+
+                if(p.note) {
+                    noteSpan.innerText = p.note;
+                    noteSpan.parentElement.style.display = 'block';
+                } else {
+                    noteSpan.parentElement.style.display = 'none';
+                }
+            } else {
+                adminInfoBox.style.display = 'none';
+            }
+
             let bedLabel = '2 PN';
             if (p.bed === 'villa') bedLabel = 'Villa';
             else if (p.bed === 'duplex') bedLabel = 'Duplex';
@@ -941,6 +1003,7 @@
             resetAdminForm();
         }
 
+        // --- KHỞI CHẠY HỆ THỐNG KHI TẢI TRANG ---
         window.onload = loadDataFromFirebase;
     </script>
 </body>
